@@ -1,0 +1,62 @@
+.wrapper {
+    height: 60px;
+    border-radius: 4px;
+    &:hover {
+        background-color: var(--hover-color);
+    }
+}
+
+.song-item {
+    padding: 10px;
+}
+
+.first-column {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.song-img {
+    width: 40px;
+    border-radius: 8px;
+    margin-left: 8px;
+    margin-right: 8px;
+    cursor: pointer;
+}
+
+.song-title {
+    margin-left: 2px;
+}
+
+.song-info {
+    width: 100%;
+    strong {
+        display: block;
+        max-width: 65%;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+    }
+}
+.artist-names,
+.album-title {
+    display: block;
+    max-width: 70%;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.second-col {
+    display: flex;
+    align-items: center;
+}
+
+.third-col {
+    display: flex;
+    align-items: center;
+
+    p {
+        opacity: 0.6;
+    }
+}

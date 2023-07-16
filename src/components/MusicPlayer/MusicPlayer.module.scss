@@ -1,7 +1,13 @@
 .wrapper {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    height: 90px;
     padding: 12px 20px;
     background-color: #130c1c;
     color: var(--text-color);
+    z-index: 99;
 }
 
 .song-info {
@@ -18,16 +24,6 @@
 
 .info {
     margin-right: 24px;
-
-    p {
-        opacity: 0.6;
-
-        &:hover {
-            color: var(--primary);
-            text-decoration: underline;
-            opacity: 1;
-        }
-    }
 }
 
 .icons {
@@ -89,7 +85,7 @@
 
 .volume-btn {
     margin-right: 8px;
-    
+
     &:hover {
         cursor: pointer;
         color: var(--primary);
@@ -98,7 +94,7 @@
 
 .volume-slider {
     width: 70px;
-    margin-bottom: 10px!important;
+    margin-bottom: 10px !important;
 }
 
 .list-btn {

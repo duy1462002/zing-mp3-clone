@@ -6,10 +6,13 @@
     --black: black;
     --main-color: rgba(23, 15, 35, 1);
     --divided-color: rgba(76, 70, 85, 1);
-    --hover-color: rgba(76, 70, 85, 1);
+    --hover-color: rgb(51, 49, 54);
     --padding-content: 46px;
+    --header-height: 70px;
     --search-color: #2f2739;
     --popup-color: #34224f;
+    --opacity-text: #ffffff80;
+    --player-height: 90px;
 }
 
 ::placeholder {

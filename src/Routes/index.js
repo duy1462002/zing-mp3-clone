@@ -6,6 +6,7 @@ import Radio from "../pages/public/Radio/Radio"
 import ZingChard from "../pages/public/ZingChart/Zingchart"
 import Topic from "~/pages/public/Topic/Topic";
 import Top100 from "~/pages/public/Top100/Top100";
+import Playlist from "~/pages/public/Playlist/Playlist";
 
 
 const publicRoutes = [
@@ -16,6 +17,7 @@ const publicRoutes = [
     { path: config.routes.billboard, component: Billboard},
     { path: config.routes.topic, component: Topic},
     { path: config.routes.top100, component: Top100},
+    { path: config.routes.playlist_title_id, component: Playlist},
 ]
 
 export {publicRoutes}
