@@ -3,7 +3,7 @@ import { Route, Routes } from 'react-router-dom';
 import { publicRoutes } from './Routes';
 import Layout from './Layout';
 import "~/GlobalStyle/GlobalStyle.css"
-import "~/GlobalStyle/AntDesignCustom.css"
+import "~/GlobalStyle/AntDesignCustom.scss"
 import "~/GlobalStyle/SlickCustom.css"
 import { useEffect } from 'react';
 import * as actions from '~/store/actions'
