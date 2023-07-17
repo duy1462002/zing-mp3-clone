@@ -8,9 +8,12 @@ import { HeartOutlined, MoreOutlined, PlayCircleTwoTone } from '@ant-design/icon
 import SongList from '~/components/SongList';
 import ClickAbleText from '~/components/ClickAbleText';
 import { Scrollbars } from 'react-custom-scrollbars-2';
+import { useDispatch } from 'react-redux';
+import * as actions from "~/store/actions"
 const cx = classNames.bind(style);
 
 const Playlist = () => {
+    const dispatch = useDispatch();
     // eslint-disable-next-line no-unused-vars
     const { title, id } = useParams();
     const [playlistData, setPlaylistData] = useState(null);
@@ -18,17 +21,17 @@ const Playlist = () => {
     useEffect(() => {
         const fetchDataPlaylist = async () => {
             const res = await apis.apiGetPlaylist(id);
-            console.log(res);
             if (res.data.err === 0) {
-                setPlaylistData(res.data.data);
+                setPlaylistData(res?.data?.data);
+                let songsFetched = res?.data?.data?.song?.items;
+                const songsPlayAble = songsFetched.filter(song => song.isWorldWide);
+                dispatch(actions.setPlaylist(songsPlayAble));
             }
         };
 
         fetchDataPlaylist();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
-
-    console.log(playlistData);
 
     return (
         <div className={cx('wrapper')}>
@@ -82,7 +85,7 @@ const Playlist = () => {
                     <span className={cx('heading-text')}>Lời tựa</span>
                     <span>{playlistData?.sortDescription}</span>
                   </div>
-                  <SongList data={playlistData?.song.items} totalSongs= {playlistData?.song}/>
+                  <SongList/>
                 </div>
 
                 

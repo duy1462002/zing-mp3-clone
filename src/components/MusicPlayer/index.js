@@ -25,11 +25,12 @@ const cx = classNames.bind(style);
 var intervalID;
 const MusicPlayer = () => {
     const dispatch = useDispatch();
-    const { currentSongId, isPlaying } = useSelector((state) => state.curMusic);
-
+    const { currentSongId, isPlaying, songs } = useSelector((state) => state.curMusic);
     const [audio, setAudio] = useState(new Audio());
     const [songInfo, setSongInfo] = useState(null);
     const [sliderValue, setSliderValue] = useState(0);
+    const [isShuffle, setIsShuffle] = useState(false);
+    const [isRepeat, setIsRepeat] = useState(false);
 
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
@@ -46,11 +47,7 @@ const MusicPlayer = () => {
                 setAudio(new Audio(res2.data.data['128']));
                 if (res1.data.err === 0) {
                     setSongInfo(res1.data.data);
-                    console.log(res1);
                 }
-            } else {
-                // dispatch(actions.setPlay(false));
-                alert('phai co tien moi nghe dc bai nay');
             }
         };
 
@@ -73,6 +70,7 @@ const MusicPlayer = () => {
 
     useEffect(() => {
         intervalID && clearInterval(intervalID);
+        setSliderValue(0);
         audio.load();
         if (isPlaying) {
             audio.play();
@@ -83,6 +81,26 @@ const MusicPlayer = () => {
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [audio]);
+    //handleAutoPlayNextSong
+    useEffect(() => {
+        const handleEnded = () => {
+            if (isRepeat) {
+                audio.currentTime = 0;
+                audio.play();
+            } else if (isShuffle) {
+                handleShuffle();
+            } else {
+                handleNextSong();
+            }
+        };
+
+        audio.addEventListener('ended', handleEnded);
+
+        return () => {
+            audio.removeEventListener('ended', handleEnded);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [audio, isShuffle, isPlaying, isRepeat]);
 
     const handlePlayMusic = () => {
         if (songInfo) {
@@ -116,6 +134,46 @@ const MusicPlayer = () => {
         setSliderValue(value);
     };
 
+    //handle button actions
+    const handleNextSong = () => {
+        if (songs) {
+            if (isShuffle) {
+                handleShuffle();
+            } else {
+                let currentSongIndex;
+                songs?.forEach((song, index) => {
+                    if (song?.encodeId === currentSongId) currentSongIndex = index;
+                });
+
+                if (currentSongIndex !== 0) {
+                    dispatch(actions.setCurSongId(songs[currentSongIndex + 1]?.encodeId));
+                }
+            }
+        }
+    };
+
+    const handlePrevSong = () => {
+        if (songs) {
+            if (isShuffle) {
+                handleShuffle();
+            } else {
+                let currentSongIndex;
+                songs?.forEach((song, index) => {
+                    if (song?.encodeId === currentSongId) currentSongIndex = index;
+                });
+
+                if (currentSongIndex !== 0) {
+                    dispatch(actions.setCurSongId(songs[currentSongIndex - 1]?.encodeId));
+                }
+            }
+        }
+    };
+
+    const handleShuffle = () => {
+        const randomIndex = Math.round(Math.random() * songs?.length) - 1;
+        dispatch(actions.setCurSongId(songs[randomIndex].encodeId));
+    };
+
     return (
         <div className={cx('wrapper')}>
             <Row>
@@ -141,8 +199,16 @@ const MusicPlayer = () => {
                 <Col xs={12} sm={12} md={8} lg={8} xl={8}>
                     <div className={cx('song-player')}>
                         <div className={cx('actions')}>
-                            <SwapOutlined className={cx('action-btn')} />
-                            <StepBackwardOutlined className={cx('action-btn')} />
+                            <SwapOutlined
+                                className={cx('action-btn', { shuffle: isShuffle })}
+                                onClick={() => {
+                                    setIsShuffle((prev) => !prev);
+                                }}
+                            />
+                            <StepBackwardOutlined
+                                className={songs ? cx('action-btn') : cx('action-btn-disable')}
+                                onClick={handlePrevSong}
+                            />
                             <div onClick={handlePlayMusic}>
                                 {isPlaying ? (
                                     <PauseCircleOutlined className={cx('action-btn', 'play-btn')} />
@@ -150,8 +216,16 @@ const MusicPlayer = () => {
                                     <PlayCircleOutlined className={cx('action-btn', 'play-btn')} />
                                 )}
                             </div>
-                            <StepForwardOutlined className={cx('action-btn')} />
-                            <RetweetOutlined className={cx('action-btn')} />
+                            <StepForwardOutlined
+                                className={songs ? cx('action-btn') : cx('action-btn-disable')}
+                                onClick={handleNextSong}
+                            />
+                            <RetweetOutlined
+                                className={cx('action-btn', { repeat: isRepeat })}
+                                onClick={() => {
+                                    setIsRepeat((prev) => !prev);
+                                }}
+                            />
                         </div>
                         <div className={cx('slide-bar')}>
                             <Slider

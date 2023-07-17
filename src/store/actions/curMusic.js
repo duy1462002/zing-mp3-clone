@@ -9,3 +9,8 @@ export const setPlay = (flag) => ({
     type: actionTypes.PLAY,
     flag
 })
+
+export const setPlaylist = (songs) => ({
+    type: actionTypes.SET_PLAYLIST,
+    songs
+})

@@ -4,13 +4,14 @@ import style from './SongItem.module.scss';
 import { Col, Divider, Row } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import ClickAbleText from '../ClickAbleText';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from "~/store/actions"
 const cx = classNames.bind(style);
 
 const SongItem = ({ data }) => {
-    const dispatch = useDispatch();
+    const { currentSongId } = useSelector(state => state.curMusic)
 
+    const dispatch = useDispatch();
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
     }
@@ -21,7 +22,7 @@ const SongItem = ({ data }) => {
     }
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', {active: data.encodeId === currentSongId})}>
             <div className={cx('song-item')}>
                 <Row>
                     <Col span={12} className={cx('first-column')}>

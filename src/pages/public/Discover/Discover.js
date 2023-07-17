@@ -29,6 +29,7 @@ const Discover = () => {
         if (item.type === 1) {
             dispatch(actions.setCurSongId(item.encodeId));
             dispatch(actions.setPlay(true));
+            dispatch(actions.setPlaylist(null));
         } else if (item.type === 4) {
             const playlistPath = item?.link?.split('.')[0];
             const playlistPath2 = playlistPath.split('/');

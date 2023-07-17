@@ -54,6 +54,11 @@
     }
 }
 
+.action-btn-disable {
+    cursor: not-allowed!important ;
+    opacity: 0.5;
+}
+
 .play-btn {
     font-size: 34px;
 }
@@ -103,3 +108,10 @@
         color: var(--primary);
     }
 }
+
+.repeat,
+.shuffle {
+    color: var(--primary);
+}
+
+

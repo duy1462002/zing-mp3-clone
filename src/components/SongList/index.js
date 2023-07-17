@@ -4,10 +4,13 @@ import style from './SongList.module.scss';
 import { Col, Divider, Row } from 'antd';
 import { SortAscendingOutlined } from '@ant-design/icons';
 import SongItem from '../SongItem';
+import { useSelector } from 'react-redux/es/hooks/useSelector';
+
 const cx = classNames.bind(style);
 
-const SongList = ({data, totalSongs}) => {
-    console.log(data);
+const SongList = () => {
+    const { songs } = useSelector((state) => state.curMusic);
+
     return (
         <div className={cx('wrapper')}>
             <div className={cx('heading')}>
@@ -17,7 +20,9 @@ const SongList = ({data, totalSongs}) => {
                         <span className={cx('heading-text')}>Song</span>
                     </Col>
                     <Col span={10}>Album</Col>
-                    <Col span={2} style={{marginLeft: '-12px'}}>Duration</Col>
+                    <Col span={2} style={{ marginLeft: '-12px' }}>
+                        Duration
+                    </Col>
                 </Row>
             </div>
             <Divider
@@ -26,10 +31,10 @@ const SongList = ({data, totalSongs}) => {
                 style={{ margin: 0, backgroundColor: 'gray', opacity: 0.3 }}
             />
             <div className={cx('song-lists')}>
-                {data?.map(song => <SongItem key={song?.encodeId} data={song}/>)}
+                {songs?.map(song => <SongItem key={song?.encodeId} data={song}/>)}
             </div>
 
-            <div className={cx('total-songs')}>{`Total: ${totalSongs?.total} songs`}</div>
+            <div className={cx('total-songs')}>{`Total: ${songs?.length} songs`}</div>
         </div>
     );
 };

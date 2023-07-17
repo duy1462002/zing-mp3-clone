@@ -6,7 +6,8 @@ const actionTypes = {
     PLAY: 'PLAY',
 
     //PLAYLIST
-    SET_CUR_PLAYLIST_ID: 'SET_CUR_PLAYLIST_ID'
+    SET_CUR_PLAYLIST_ID: 'SET_CUR_PLAYLIST_ID',
+    SET_PLAYLIST: 'SET_PLAYLIST',
 }
 
 export default actionTypes;
