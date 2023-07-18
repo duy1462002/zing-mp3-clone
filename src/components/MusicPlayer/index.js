@@ -193,9 +193,38 @@ const MusicPlayer = () => {
     //change Volume Music
     useEffect(() => {
         audio.volume = volumeValue / 100;
-
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [volumeValue]);
+
+    //handle Keyboard
+    useEffect(() => {
+        //spacekey
+        const handleKeyDown = (e) => {
+            if (e.code === 'Space') {
+                e.preventDefault();
+                if (songInfo) {
+                    if (isPlaying) {
+                        audio.pause();
+                        dispatch(actions.setPlay(false));
+                    } else {
+                        audio.play();
+                        dispatch(actions.setPlay(true));
+                    }
+                }
+            }
+            if (e.code === 'ArrowLeft') {
+                audio.currentTime -= 5;
+            }
+            if (e.code === 'ArrowRight') {
+                audio.currentTime += 5;
+            }
+        };
+        document.addEventListener('keydown', handleKeyDown);
+        return () => {
+            document.removeEventListener('keydown', handleKeyDown);
+        };
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [isPlaying]);
 
     return (
         <div className={cx('wrapper')}>
@@ -252,7 +281,8 @@ const MusicPlayer = () => {
                         </div>
                         <div className={cx('slide-bar')}>
                             <Slider
-                                tooltip={{open: false}}
+                            dots={false}
+                                tooltip={{ open: false }}
                                 value={sliderValue}
                                 marks={marks}
                                 railStyle={{ backgroundColor: 'gray' }}
@@ -279,13 +309,12 @@ const MusicPlayer = () => {
                         </div>
 
                         <Popover
-                            content={<PlaylistPopper/>}
+                            content={<PlaylistPopper />}
                             trigger="click"
                             arrow={false}
                             color="#34224f"
                             overlayInnerStyle={{ padding: '6px', marginBottom: '12px' }}
-                            placement='topLeft'
-                            
+                            placement="topLeft"
                         >
                             <UnorderedListOutlined className={cx('list-btn')} />
                         </Popover>

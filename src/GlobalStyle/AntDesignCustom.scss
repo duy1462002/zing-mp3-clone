@@ -1,6 +1,5 @@
 /* menu item */
 .App {
-    
     .ant-menu-item {
         width: 100%;
         margin-left: 0;
@@ -21,8 +20,8 @@
     .ant-input-search-button {
         background-color: transparent;
         border: none;
-        border-radius: 99px!important;
-        color: var(--text-color)!important;
+        border-radius: 99px !important;
+        color: var(--text-color) !important;
     }
     .ant-input {
         color: var(--text-color);
@@ -35,5 +34,8 @@
     }
     .ant-slider {
         margin-bottom: 0;
+    }
+    .ant-slider-dot {
+        display: none;
     }
 }
