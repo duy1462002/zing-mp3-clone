@@ -148,7 +148,7 @@ const MusicPlayer = () => {
                     if (song?.encodeId === currentSongId) currentSongIndex = index;
                 });
 
-                if (currentSongIndex !== 0) {
+                if (currentSongIndex < songs.length - 1) {
                     dispatch(actions.setCurSongId(songs[currentSongIndex + 1]?.encodeId));
                 }
             }
