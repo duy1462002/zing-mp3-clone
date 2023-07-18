@@ -5,11 +5,11 @@ import { Col, Divider, Row } from 'antd';
 import { HeartOutlined } from '@ant-design/icons';
 import ClickAbleText from '../ClickAbleText';
 import { useDispatch, useSelector } from 'react-redux';
-import * as actions from "~/store/actions"
+import * as actions from '~/store/actions';
 const cx = classNames.bind(style);
 
 const SongItem = ({ data }) => {
-    const { currentSongId } = useSelector(state => state.curMusic)
+    const { currentSongId } = useSelector((state) => state.curMusic);
 
     const dispatch = useDispatch();
     function convertDuration(time) {
@@ -19,17 +19,24 @@ const SongItem = ({ data }) => {
     const handlePlayMusic = () => {
         dispatch(actions.setCurSongId(data?.encodeId));
         dispatch(actions.setPlay(true));
-    }
+    };
 
     return (
-        <div className={cx('wrapper', {active: data.encodeId === currentSongId})}>
+        <div className={cx('wrapper', { active: data.encodeId === currentSongId })}>
             <div className={cx('song-item')}>
                 <Row>
                     <Col span={12} className={cx('first-column')}>
                         <HeartOutlined />
-                        <img onClick={handlePlayMusic} className={cx('song-img')} alt="" src={data?.thumbnail} />
+                        <img
+                            onClick={handlePlayMusic}
+                            className={cx('song-img')}
+                            alt=""
+                            src={data?.thumbnail}
+                        />
                         <div className={cx('song-info')}>
-                            <strong className={cx('song-title')}>{data?.title}</strong>
+                            <strong className={cx('song-title')} onClick={handlePlayMusic}>
+                                {data?.title}
+                            </strong>
                             <ClickAbleText className={cx('artist-names')}>
                                 {data?.artistsNames}
                             </ClickAbleText>

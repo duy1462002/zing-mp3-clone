@@ -17,9 +17,10 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
-import { Col, Row, Slider } from 'antd';
+import { Col, Popover, Row, Slider } from 'antd';
 import * as apis from '~/apis';
 import ClickAbleText from '../ClickAbleText';
+import PlaylistPopper from './PlaylistPopper';
 
 const cx = classNames.bind(style);
 var intervalID;
@@ -31,6 +32,8 @@ const MusicPlayer = () => {
     const [sliderValue, setSliderValue] = useState(0);
     const [isShuffle, setIsShuffle] = useState(false);
     const [isRepeat, setIsRepeat] = useState(false);
+    const [mute, setMute] = useState(false);
+    const [volumeValue, setVolumeValue] = useState(100);
 
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
@@ -174,6 +177,26 @@ const MusicPlayer = () => {
         dispatch(actions.setCurSongId(songs[randomIndex].encodeId));
     };
 
+    const handleMuteVolume = () => {
+        mute ? setVolumeValue(100) : setVolumeValue(0);
+        setMute((prev) => !prev);
+    };
+
+    const handleChangeVolume = (value) => {
+        setVolumeValue(value);
+        if (value === 0) {
+            setMute(true);
+        } else {
+            setMute(false);
+        }
+    };
+    //change Volume Music
+    useEffect(() => {
+        audio.volume = volumeValue / 100;
+
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [volumeValue]);
+
     return (
         <div className={cx('wrapper')}>
             <Row>
@@ -229,6 +252,7 @@ const MusicPlayer = () => {
                         </div>
                         <div className={cx('slide-bar')}>
                             <Slider
+                                tooltip={{open: false}}
                                 value={sliderValue}
                                 marks={marks}
                                 railStyle={{ backgroundColor: 'gray' }}
@@ -242,14 +266,29 @@ const MusicPlayer = () => {
                         <YoutubeOutlined className={cx('setting-btn')} />
                         <AlignLeftOutlined className={cx('setting-btn')} />
                         <div className={cx('volume-wrapper')}>
-                            <SoundOutlined className={cx('volume-btn')} />
+                            <SoundOutlined
+                                className={cx('volume-btn', { mute: mute })}
+                                onClick={handleMuteVolume}
+                            />
                             <Slider
                                 className={cx('volume-slider')}
-                                defaultValue={100}
+                                value={volumeValue}
                                 railStyle={{ backgroundColor: 'gray' }}
+                                onChange={handleChangeVolume}
                             />
                         </div>
-                        <UnorderedListOutlined className={cx('list-btn')} />
+
+                        <Popover
+                            content={<PlaylistPopper/>}
+                            trigger="click"
+                            arrow={false}
+                            color="#34224f"
+                            overlayInnerStyle={{ padding: '6px', marginBottom: '12px' }}
+                            placement='topLeft'
+                            
+                        >
+                            <UnorderedListOutlined className={cx('list-btn')} />
+                        </Popover>
                     </div>
                 </Col>
             </Row>

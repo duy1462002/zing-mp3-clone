@@ -1,4 +1,5 @@
 .wrapper {
+    position: fixed;
     width: 240px;
     height: calc(100vh - var(--player-height));
     background-color: rgba(35, 27, 46, 1);

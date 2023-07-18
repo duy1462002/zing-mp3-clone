@@ -1,7 +1,8 @@
 import actionTypes from "../actions/actionTypes";
 
 const initState = {
-    banner: []
+    banner: [],
+    newRelease: []
 }
 
 const appReducer = (state = initState, action) => {
@@ -10,7 +11,7 @@ const appReducer = (state = initState, action) => {
             return {
                 ...state,
                 banner: action.homeData?.find(item => item.sectionType === "banner").items || null,
-                
+                newRelease: action.homeData?.find(item => item.sectionType === "new-release").items.all || null,
             }; 
         default:
             return state;

@@ -8,6 +8,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import { settings } from '~/config/slickResponsiveSetting';
 import * as actions from '~/store/actions';
 import { useNavigate } from 'react-router-dom';
+import NewRelease from './NewRelease';
 
 const cx = classNames.bind(style);
 
@@ -58,6 +59,8 @@ const Discover = () => {
                     ))}
                 </Slider>
             </div>
+
+            <NewRelease/>
         </div>
     );
 };
