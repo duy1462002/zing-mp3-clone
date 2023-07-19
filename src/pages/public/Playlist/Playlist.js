@@ -7,7 +7,7 @@ import { Button } from 'antd';
 import { HeartOutlined, MoreOutlined, PlayCircleTwoTone } from '@ant-design/icons';
 import SongList from '~/components/SongList';
 import { Scrollbars } from 'react-custom-scrollbars-2';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import * as actions from "~/store/actions"
 const cx = classNames.bind(style);
 
@@ -16,6 +16,8 @@ const Playlist = () => {
     // eslint-disable-next-line no-unused-vars
     const { title, id } = useParams();
     const [playlistData, setPlaylistData] = useState(null);
+    const { songs } = useSelector((state) => state.curMusic);
+
 
     useEffect(() => {
         const fetchDataPlaylist = async () => {
@@ -31,6 +33,10 @@ const Playlist = () => {
         fetchDataPlaylist();
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
+
+    const handlePlayPlaylist = () => {
+        dispatch(actions.setCurSongId(songs[0].encodeId));
+    }
 
     return (
         <div className={cx('wrapper')}>
@@ -66,6 +72,7 @@ const Playlist = () => {
                             type="primary"
                             shape="round"
                             icon={<PlayCircleTwoTone />}
+                            onClick={handlePlayPlaylist}
                         >
                             Play playlist
                         </Button>

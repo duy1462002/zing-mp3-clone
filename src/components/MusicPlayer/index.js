@@ -127,7 +127,7 @@ const MusicPlayer = () => {
             style: {
                 color: 'white',
             },
-            label: songInfo ?  convertDuration(songInfo?.duration) : '00:00',
+            label: songInfo ? convertDuration(songInfo?.duration) : '00:00',
         },
     };
 
