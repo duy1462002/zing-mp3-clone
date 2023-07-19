@@ -9,6 +9,7 @@ import { settings } from '~/config/slickResponsiveSetting';
 import * as actions from '~/store/actions';
 import { useNavigate } from 'react-router-dom';
 import NewRelease from './NewRelease';
+import Playlists from './Playlists';
 
 const cx = classNames.bind(style);
 
@@ -61,6 +62,8 @@ const Discover = () => {
             </div>
 
             <NewRelease/>
+
+            <Playlists/>
         </div>
     );
 };

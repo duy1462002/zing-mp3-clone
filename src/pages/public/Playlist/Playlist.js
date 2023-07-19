@@ -6,7 +6,6 @@ import style from './Playlist.module.scss';
 import { Button } from 'antd';
 import { HeartOutlined, MoreOutlined, PlayCircleTwoTone } from '@ant-design/icons';
 import SongList from '~/components/SongList';
-import ClickAbleText from '~/components/ClickAbleText';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useDispatch } from 'react-redux';
 import * as actions from "~/store/actions"
@@ -43,7 +42,7 @@ const Playlist = () => {
                 <div className={cx('playlist-content')}>
                     <div className={cx('info')}>
                         <h3>{playlistData?.title}</h3>
-                        <div className={cx('artists-names')}>
+                        {/* <div className={cx('artists-names')}>
                             <ClickAbleText>
                                 {playlistData?.artists[0].name},
                             </ClickAbleText>
@@ -56,7 +55,7 @@ const Playlist = () => {
                             <ClickAbleText>
                                 {playlistData?.artists[3].name}
                             </ClickAbleText>
-                        </div>
+                        </div> */}
                         <p>{playlistData?.like} likes</p>
                         <p>{playlistData?.listen} listens</p>
                     </div>

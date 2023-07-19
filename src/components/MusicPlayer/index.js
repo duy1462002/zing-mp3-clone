@@ -58,7 +58,6 @@ const MusicPlayer = () => {
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [currentSongId]);
     //play music when click a song
-    // console.log(songSource);
     useEffect(() => {
         if (isPlaying) {
             intervalID = setInterval(() => {
@@ -122,13 +121,13 @@ const MusicPlayer = () => {
             style: {
                 color: 'white',
             },
-            label: convertDuration((sliderValue * songInfo?.duration) / 100),
+            label: songInfo ? convertDuration((sliderValue * songInfo?.duration) / 100) : '00:00',
         },
         100: {
             style: {
                 color: 'white',
             },
-            label: convertDuration(songInfo?.duration),
+            label: songInfo ?  convertDuration(songInfo?.duration) : '00:00',
         },
     };
 
@@ -230,23 +229,27 @@ const MusicPlayer = () => {
         <div className={cx('wrapper')}>
             <Row>
                 <Col xs={12} sm={12} md={8} lg={8} xl={8}>
-                    <div className={cx('song-info')}>
-                        <img
-                            className={cx('song-img')}
-                            src={songInfo?.thumbnail}
-                            alt={songInfo?.title}
-                        />
+                    {songInfo ? (
+                        <div className={cx('song-info')}>
+                            <img
+                                className={cx('song-img')}
+                                src={songInfo?.thumbnail}
+                                alt={songInfo?.title}
+                            />
 
-                        <div className={cx('info')}>
-                            <strong>{songInfo?.title}</strong>
-                            <ClickAbleText>{songInfo?.artistsNames}</ClickAbleText>
-                        </div>
+                            <div className={cx('info')}>
+                                <strong>{songInfo?.title}</strong>
+                                <ClickAbleText>{songInfo?.artistsNames}</ClickAbleText>
+                            </div>
 
-                        <div className={cx('icons')}>
-                            <HeartOutlined />
-                            <MoreOutlined />
+                            <div className={cx('icons')}>
+                                <HeartOutlined />
+                                <MoreOutlined />
+                            </div>
                         </div>
-                    </div>
+                    ) : (
+                        <h3>Let's pick a song</h3>
+                    )}
                 </Col>
                 <Col xs={12} sm={12} md={8} lg={8} xl={8}>
                     <div className={cx('song-player')}>
@@ -281,7 +284,7 @@ const MusicPlayer = () => {
                         </div>
                         <div className={cx('slide-bar')}>
                             <Slider
-                            dots={false}
+                                dots={false}
                                 tooltip={{ open: false }}
                                 value={sliderValue}
                                 marks={marks}

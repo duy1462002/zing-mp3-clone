@@ -10,7 +10,6 @@ const cx = classNames.bind(style);
 const NewRelease = () => {
     const dispatch = useDispatch();
     const { newRelease } = useSelector((state) => state.app);
-    console.log(newRelease);
     const songsPlayAble = newRelease.filter((song) => song.isWorldWide);
 
     const handleSetPlaylist = () => {
