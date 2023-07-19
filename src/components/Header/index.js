@@ -14,9 +14,9 @@ import SettingPopper from './Popper/SettingPopper';
 import AvatarPopper from './Popper/AvatarPopper';
 const cx = classNames.bind(styles);
 
-const Header = () => {
+const Header = ({isScroll}) => {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', {isScroll: isScroll})}>
             <div className={cx('search-container')}>
                 <ArrowLeftOutlined className={cx('lr-button')} />
                 <ArrowRightOutlined className={cx('lr-button')} />

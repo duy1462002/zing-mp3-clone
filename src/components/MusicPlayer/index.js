@@ -223,7 +223,7 @@ const MusicPlayer = () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlaying]);
+    }, [isPlaying, audio]);
 
     return (
         <div className={cx('wrapper')}>
