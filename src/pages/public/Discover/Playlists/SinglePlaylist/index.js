@@ -7,7 +7,6 @@ import PlaylistItem from './PlaylistItem';
 const cx = classNames.bind(style);
 
 const SinglePlaylist = ({ data }) => {
-    console.log(data);
     return (
         <div className={cx('wrapper')}>
             <h3>{data?.title}</h3>

@@ -8,6 +8,9 @@ const actionTypes = {
     //PLAYLIST
     SET_CUR_PLAYLIST_ID: 'SET_CUR_PLAYLIST_ID',
     SET_PLAYLIST: 'SET_PLAYLIST',
+
+    //GetChart
+    GET_CHART: 'GET_CHART'
 }
 
 export default actionTypes;

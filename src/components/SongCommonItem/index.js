@@ -33,7 +33,7 @@ const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) =
     const { currentSongId } = useSelector((state) => state.curMusic);
 
     const handlePlaySong = () => {
-        dispatch(actions.setCurSongId(data.encodeId));
+        dispatch(actions.setCurSongId(data?.encodeId));
         !sidePlaylistCheck && onSetPlaylist();
     };
 
@@ -42,8 +42,8 @@ const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) =
             className={cx(
                 'wrapper',
                 {
-                    active: currentSongId === data.encodeId,
-                    sidePlaylistCheck: currentSongId === data.encodeId && sidePlaylistCheck,
+                    active: currentSongId === data?.encodeId,
+                    sidePlaylistCheck: currentSongId === data?.encodeId && sidePlaylistCheck,
                 },
                 className,
             )}

@@ -35,7 +35,7 @@ const Discover = () => {
         } else if (item.type === 4) {
             const playlistPath = item?.link?.split('.')[0];
             const playlistPath2 = playlistPath.split('/');
-            playlistPath2[1] = "playlist";
+            playlistPath2[1] = 'playlist';
             const playlistPath3 = playlistPath2.join('/');
             navigate(playlistPath3);
         }
@@ -49,7 +49,7 @@ const Discover = () => {
                 onMouseLeave={handleArrowFalse}
             >
                 <Slider {...settings} arrows={arrowShow} autoplay>
-                    {banner.map((item, index) => (
+                    {banner?.map((item, index) => (
                         <img
                             onClick={() => handleClickBanner(item)}
                             className={cx('card')}
@@ -61,9 +61,9 @@ const Discover = () => {
                 </Slider>
             </div>
 
-            <NewRelease/>
+            <NewRelease />
 
-            <Playlists/>
+            <Playlists />
         </div>
     );
 };
