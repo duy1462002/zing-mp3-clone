@@ -7,6 +7,7 @@ import classNames from 'classnames/bind';
 import style from './ZingChart.module.scss';
 import { isEqual } from 'lodash';
 import DisplayedSong from './DisplayedSong';
+import Top100 from '~/components/Top100';
 
 const cx = classNames.bind(style);
 
@@ -22,7 +23,6 @@ const ZingChart = () => {
     const [selected, setSelected] = useState(null);
     const chartRef = useRef();
     const { chart, topSongs, chartHome } = useSelector((state) => state.app);
-    console.log(chartHome);
     useEffect(() => {
       var songDisplayed = topSongs.find(song => song?.encodeId === selected);
       setSongInfo(songDisplayed);
@@ -108,23 +108,29 @@ const ZingChart = () => {
 
     return (
         <div className={cx('wrapper')}>
-          <h3>#zingchart</h3>
-
-            {dataChart && (
-                <div className={cx('chart')}>
-                    <Line data={dataChart} ref={chartRef} options={options} />
-                    <div
-                        className={cx('tooltip')}
-                        style={{
-                            top: tooltipState.top,
-                            left: tooltipState.left,
-                            opacity: tooltipState.opacity,
-                        }}
-                    >
-                        <DisplayedSong data={songInfo}/> 
+          <div>
+              <h3 className={cx('heading')}>#zingchart</h3>
+    
+                {dataChart && (
+                    <div className={cx('chart')}>
+                        <Line data={dataChart} ref={chartRef} options={options} />
+                        <div
+                            className={cx('tooltip')}
+                            style={{
+                                top: tooltipState.top,
+                                left: tooltipState.left,
+                                opacity: tooltipState.opacity,
+                            }}
+                        >
+                            <DisplayedSong data={songInfo}/> 
+                        </div>
                     </div>
-                </div>
-            )}
+                )}
+          </div>
+
+          <div className={cx('top100-wrapper')}> 
+                <Top100 data={chartHome?.RTChart?.items}/>
+          </div>
         </div>
     );
 };

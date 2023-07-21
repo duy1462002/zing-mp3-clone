@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
 const cx = classNames.bind(style);
 
-const SongItem = ({ data }) => {
+const SongItem = ({ data, onSetPlaylist, topNumber = null }) => {
     const { currentSongId } = useSelector((state) => state.curMusic);
 
     const dispatch = useDispatch();
@@ -19,6 +19,7 @@ const SongItem = ({ data }) => {
     const handlePlayMusic = () => {
         dispatch(actions.setCurSongId(data?.encodeId));
         dispatch(actions.setPlay(true));
+        onSetPlaylist();
     };
 
     return (
@@ -26,7 +27,7 @@ const SongItem = ({ data }) => {
             <div className={cx('song-item')}>
                 <Row>
                     <Col span={12} className={cx('first-column')}>
-                        <HeartOutlined />
+                        {topNumber ? <h3 className={cx('top-number')}>{topNumber}</h3> :<HeartOutlined />}
                         <img
                             onClick={handlePlayMusic}
                             className={cx('song-img')}

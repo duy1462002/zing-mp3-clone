@@ -1,5 +1,6 @@
 .wrapper {
-    height: 1000px;
+    height: 800px;
+    margin-top: 36px;
     .heading {
         background: radial-gradient(
                 50% 124.93% at 95.86% -10%,
@@ -15,14 +16,4 @@
         line-height: 48px;
         margin-bottom: 24px;
     }
-}
-
-.chart {
-    height: 400px;
-    width: 100%;
-    position: relative;
-}
-
-.tooltip {
-    position: absolute;
 }

@@ -22,7 +22,7 @@
 
 .song-img {
     width: 40px;
-    border-radius: 8px;
+    border-radius: 6px;
     margin-left: 8px;
     margin-right: 8px;
     cursor: pointer;
@@ -64,4 +64,12 @@
     p {
         opacity: 0.6;
     }
+}
+
+.top-number {
+    width: 4px;
+    font-size: 14px;
+    margin-right: 12px;
+    display: flex;
+    justify-content: center;
 }
