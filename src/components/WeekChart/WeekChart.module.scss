@@ -1,7 +1,5 @@
-.wrapper {
-    height: 1500px;
-    .heading {
-        background: radial-gradient(
+.heading {
+    background: radial-gradient(
                 50% 124.93% at 95.86% -10%,
                 #3efad9 0,
                 hsla(0, 0%, 100%, 0) 100%
@@ -13,16 +11,10 @@
         font-weight: 700;
         font-size: 40px;
         line-height: 48px;
-        margin-bottom: 24px;
-    }
+        margin-bottom: 16px;
 }
 
-.chart {
-    height: 400px;
-    width: 100%;
-    position: relative;
-}
-
-.tooltip {
-    position: absolute;
+.tab-button {
+    width: 100px;
+    margin-right: 12px;
 }

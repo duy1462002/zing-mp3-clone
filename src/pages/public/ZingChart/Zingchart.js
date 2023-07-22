@@ -8,6 +8,7 @@ import style from './ZingChart.module.scss';
 import { isEqual } from 'lodash';
 import DisplayedSong from './DisplayedSong';
 import Top100 from '~/components/Top100';
+import WeekChart from '~/components/WeekChart';
 
 const cx = classNames.bind(style);
 
@@ -128,8 +129,12 @@ const ZingChart = () => {
                 )}
           </div>
 
-          <div className={cx('top100-wrapper')}> 
+          <div className={cx('top100-wrapper')}>
                 <Top100 data={chartHome?.RTChart?.items}/>
+          </div>
+
+          <div className={cx('weekChart-wrapper')}>
+                <WeekChart data = {chartHome?.weekChart}/>          
           </div>
         </div>
     );

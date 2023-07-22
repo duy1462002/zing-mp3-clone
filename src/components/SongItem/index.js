@@ -8,7 +8,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
 const cx = classNames.bind(style);
 
-const SongItem = ({ data, onSetPlaylist, topNumber = null }) => {
+const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null }) => {
     const { currentSongId } = useSelector((state) => state.curMusic);
 
     const dispatch = useDispatch();
