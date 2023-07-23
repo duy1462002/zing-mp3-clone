@@ -14,7 +14,7 @@ const Artist = () => {
     const { artist } = useSelector((state) => state.app);
     const { songs } = useSelector((state) => state.curMusic);
     const [isHavePlaylist, setIsHavePlaylist] = useState(true);
-
+    console.log(artist);
     useEffect(() => {
         if (artist?.playlistId) {
             const fetchDataPlaylist = async () => {
@@ -46,7 +46,6 @@ const Artist = () => {
                         <h1>{artist?.name}</h1>
                         <PlayCircleFilled className={cx('play-btn')} onClick={handlePlayPlaylist} />
                     </div>
-                    <strong>{artist?.totalFollow ? artist?.totalFollow : '0'} followers</strong>
                 </div>
             </div>
 
