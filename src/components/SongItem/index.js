@@ -38,9 +38,13 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null }) => {
                             <strong className={cx('song-title')} onClick={handlePlayMusic}>
                                 {data?.title}
                             </strong>
-                            <ClickAbleText className={cx('artist-names')}>
-                                {data?.artistsNames}
-                            </ClickAbleText>
+                            <div className={cx('artists')}>
+                                {data?.artists.map((artist, index) => (
+                                            <ClickAbleText dataArtist = {artist} key={index}>
+                                                {artist?.name}
+                                            </ClickAbleText>
+                                        ))}
+                            </div>
                         </div>
                     </Col>
                     <Col span={10} className={cx('second-col')}>

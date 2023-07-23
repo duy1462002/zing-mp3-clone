@@ -10,7 +10,10 @@ const actionTypes = {
     SET_PLAYLIST: 'SET_PLAYLIST',
 
     //GetChart
-    GET_CHART: 'GET_CHART'
+    GET_CHART: 'GET_CHART',
+
+    //GetArtist
+    GET_ARTIST: 'GET_ARTIST'
 }
 
 export default actionTypes;

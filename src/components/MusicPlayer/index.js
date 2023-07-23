@@ -239,7 +239,13 @@ const MusicPlayer = () => {
 
                             <div className={cx('info')}>
                                 <strong>{songInfo?.title}</strong>
-                                <ClickAbleText>{songInfo?.artistsNames}</ClickAbleText>
+                                <div className={cx('artists-name')}>
+                                    {songInfo?.artists.map((artist, index) => (
+                                        <ClickAbleText dataArtist = {artist} key={index}>
+                                            {artist?.name}
+                                        </ClickAbleText>
+                                    ))}
+                                </div>
                             </div>
 
                             <div className={cx('icons')}>
@@ -319,7 +325,7 @@ const MusicPlayer = () => {
                             overlayInnerStyle={{ padding: '6px', marginBottom: '12px' }}
                             placement="topLeft"
                         >
-                            <UnorderedListOutlined className={cx('list-btn')} />
+                            {songs? <UnorderedListOutlined className={cx('list-btn')}/> : <></>}
                         </Popover>
                     </div>
                 </Col>

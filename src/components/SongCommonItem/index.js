@@ -50,9 +50,15 @@ const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) =
         >
             <img className={cx('image')} src={data?.thumbnailM} alt="" onClick={handlePlaySong} />
             <div className={cx('info')}>
-                <strong onClick={handlePlaySong}>{data?.title}</strong>
-                <ClickAbleText className={cx('name')}>{data?.artistsNames}</ClickAbleText>
-                <p>{timeConverter(data?.releaseDate)}</p>
+                <strong onClick={handlePlaySong} style={{marginLeft : 2}}>{data?.title}</strong>
+                <div className={cx('artists')}>
+                    {data?.artists.map((artist, index) => (
+                        <ClickAbleText dataArtist={artist} key={index}>
+                            {artist?.name}
+                        </ClickAbleText>
+                    ))}
+                </div>
+                <p style={{marginLeft : 2}}>{timeConverter(data?.releaseDate)}</p>
             </div>
         </div>
     );
