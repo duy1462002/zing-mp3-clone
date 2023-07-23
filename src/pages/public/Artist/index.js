@@ -21,8 +21,10 @@ const Artist = () => {
                 const res = await apis.apiGetPlaylist(artist?.playlistId);
                 if (res.data.err === 0) {
                     let songsFetched = res?.data?.data?.song?.items;
-                    const songsPlayAble = songsFetched.filter((song) => song.isWorldWide);
-                    dispatch(actions.setPlaylist(songsPlayAble));
+                    const songsPlayAble = songsFetched.filter((song) => song.isWorldWide);                
+                    dispatch(actions.setPlaylist(songsPlayAble)); 
+                } else {
+                    setIsHavePlaylist(false);
                 }
             };
             fetchDataPlaylist();
@@ -32,6 +34,7 @@ const Artist = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artist]);
+    console.log(isHavePlaylist);
 
     const handlePlayPlaylist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
