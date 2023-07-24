@@ -5,6 +5,7 @@ const initState = {
     isPlaying: false,
     atPlaylist: false,
     songs: null,
+    isSearching: false,
 };
 
 const musicReducer = (state = initState, action) => {
@@ -18,6 +19,11 @@ const musicReducer = (state = initState, action) => {
             return {
                 ...state,
                 isPlaying: action.flag,
+            };
+        case actionTypes.SET_FOCUS_SEARCH:
+            return {
+                ...state,
+                isSearching: action.flag,
             };
         case actionTypes.SET_PLAYLIST:
             return {

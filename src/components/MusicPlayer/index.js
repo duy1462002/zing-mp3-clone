@@ -26,7 +26,7 @@ const cx = classNames.bind(style);
 var intervalID;
 const MusicPlayer = () => {
     const dispatch = useDispatch();
-    const { currentSongId, isPlaying, songs } = useSelector((state) => state.curMusic);
+    const { currentSongId, isPlaying, songs, isSearching } = useSelector((state) => state.curMusic);
     const [audio, setAudio] = useState(new Audio());
     const [songInfo, setSongInfo] = useState(null);
     const [sliderValue, setSliderValue] = useState(0);
@@ -199,23 +199,25 @@ const MusicPlayer = () => {
     useEffect(() => {
         //spacekey
         const handleKeyDown = (e) => {
-            if (e.code === 'Space') {
-                e.preventDefault();
-                if (songInfo) {
-                    if (isPlaying) {
-                        audio.pause();
-                        dispatch(actions.setPlay(false));
-                    } else {
-                        audio.play();
-                        dispatch(actions.setPlay(true));
+            if(!isSearching) {
+                if (e.code === 'Space') {
+                    e.preventDefault();
+                    if (songInfo) {
+                        if (isPlaying) {
+                            audio.pause();
+                            dispatch(actions.setPlay(false));
+                        } else {
+                            audio.play();
+                            dispatch(actions.setPlay(true));
+                        }
                     }
                 }
-            }
-            if (e.code === 'ArrowLeft') {
-                audio.currentTime -= 5;
-            }
-            if (e.code === 'ArrowRight') {
-                audio.currentTime += 5;
+                if (e.code === 'ArrowLeft') {
+                    audio.currentTime -= 5;
+                }
+                if (e.code === 'ArrowRight') {
+                    audio.currentTime += 5;
+                }
             }
         };
         document.addEventListener('keydown', handleKeyDown);
@@ -223,7 +225,7 @@ const MusicPlayer = () => {
             document.removeEventListener('keydown', handleKeyDown);
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [isPlaying, audio]);
+    }, [isPlaying, audio, isSearching]);
 
     return (
         <div className={cx('wrapper')}>

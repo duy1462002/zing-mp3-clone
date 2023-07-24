@@ -14,3 +14,8 @@ export const setPlaylist = (songs) => ({
     type: actionTypes.SET_PLAYLIST,
     songs
 })
+
+export const setFocusSearch = (flag) => ({
+    type: actionTypes.SET_FOCUS_SEARCH,
+    flag
+})

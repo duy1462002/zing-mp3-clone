@@ -13,7 +13,10 @@ const actionTypes = {
     GET_CHART: 'GET_CHART',
 
     //GetArtist
-    GET_ARTIST: 'GET_ARTIST'
+    GET_ARTIST: 'GET_ARTIST',
+
+    //Space bar when searching
+    SET_FOCUS_SEARCH: 'SET_FOCUS_SEARCH',
 }
 
 export default actionTypes;

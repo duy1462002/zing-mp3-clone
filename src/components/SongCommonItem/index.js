@@ -52,7 +52,7 @@ const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) =
             <div className={cx('info')}>
                 <strong onClick={handlePlaySong} style={{marginLeft : 2}}>{data?.title}</strong>
                 <div className={cx('artists')}>
-                    {data?.artists.map((artist, index) => (
+                    {data?.artists?.map((artist, index) => (
                         <ClickAbleText dataArtist={artist} key={index}>
                             {artist?.name}
                         </ClickAbleText>

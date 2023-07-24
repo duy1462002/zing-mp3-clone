@@ -1,7 +1,9 @@
 .wrapper {
     color: var(--text-color);
-    width: 270px;
+    width: 380px;
     font-size: 12px;
+    height: auto;
+    box-shadow: 0 4px 6px 0 rgba(32,33,36,.28);
 }
 
 .suggestion {
