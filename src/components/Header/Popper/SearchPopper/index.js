@@ -4,6 +4,7 @@ import styles from './SearchPopper.module.scss';
 import ArtistItem from '~/components/ArtistItem';
 import SongCommomItem from '~/components/SongCommonItem';
 import Scrollbars from 'react-custom-scrollbars-2';
+import PlaylistItem from '~/components/PlaylistItem';
 const cx = classNames.bind(styles);
 
 const SearchPopper = ({ data }) => {
@@ -28,6 +29,14 @@ const SearchPopper = ({ data }) => {
                             ?.filter((song, index) => song.isWorldWide && index < 4)
                             .map((song, index) => (
                                 <SongCommomItem data={song} sidePlaylistCheck key={index} />
+                            ))}
+                    </div>
+
+                    <div className={cx('playlists-searched')}>
+                    {data?.playlists
+                            ?.filter((playlist, index) => playlist && index < 4)
+                            .map((playlist, index) => (
+                                <PlaylistItem data={playlist} key={index}/>
                             ))}
                     </div>
 

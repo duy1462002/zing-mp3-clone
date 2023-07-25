@@ -32,7 +32,7 @@ const Header = ({ isScroll }) => {
     const [searchValue, setSearchValue] = useState('');
     const [dataSearch, setDataSearch] = useState({});
     
-    const searchValueDebounced = useDebounce(searchValue, 1000)
+    const searchValueDebounced = useDebounce(searchValue, 500)
 
     useEffect(() => {
         const fetchDataSearch = async () => {
@@ -64,8 +64,7 @@ const Header = ({ isScroll }) => {
                         value={searchValue}
                         onChange={(e) => {setSearchValue(e.target.value)}}
                         onFocus={() => {dispatch(actions.setFocusSearch(true))}}
-                        onBlur={() => {dispatch(actions.setFocusSearch(false))}}
-                        
+                        onBlur={() => {dispatch(actions.setFocusSearch(false))}}       
                     />
                 </Popover>
             </div>

@@ -38,6 +38,8 @@ const Discover = () => {
             playlistPath2[1] = 'playlist';
             const playlistPath3 = playlistPath2.join('/');
             navigate(playlistPath3);
+        } else {
+            //
         }
     };
 
