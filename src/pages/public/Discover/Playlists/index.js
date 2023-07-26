@@ -1,8 +1,8 @@
 import React, { memo } from 'react';
 import { useSelector } from 'react-redux';
-import SinglePlaylist from './SinglePlaylist';
 import classNames from 'classnames/bind';
 import style from './Playlists.module.scss';
+import SinglePlaylist from '~/components/SinglePlaylist';
 const cx = classNames.bind(style);
 const Playlists = () => {
     const { playlists } = useSelector((state) => state.app);

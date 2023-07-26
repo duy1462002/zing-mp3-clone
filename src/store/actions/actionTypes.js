@@ -1,6 +1,6 @@
 const actionTypes = {
-    GET_HOME : 'GET_HOME',
-    SET_CUR_SONG_ID : 'SET_CUR_SONG_ID',
+    GET_HOME: 'GET_HOME',
+    SET_CUR_SONG_ID: 'SET_CUR_SONG_ID',
 
     //Music
     PLAY: 'PLAY',
@@ -17,6 +17,9 @@ const actionTypes = {
 
     //Space bar when searching
     SET_FOCUS_SEARCH: 'SET_FOCUS_SEARCH',
-}
+
+    //GetTop100
+    GET_TOP100: 'GET_TOP100',
+};
 
 export default actionTypes;

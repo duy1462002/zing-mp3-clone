@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
 const cx = classNames.bind(style);
 
-const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) => {
+const SongCommomItem = ({ data, onSetPlaylist = () => {}, className, sidePlaylistCheck }) => {
     function timeConverter(UNIX_timestamp) {
         var a = new Date(UNIX_timestamp * 1000);
         var months = [
@@ -34,6 +34,8 @@ const SongCommomItem = ({ data, onSetPlaylist, className, sidePlaylistCheck }) =
 
     const handlePlaySong = () => {
         dispatch(actions.setCurSongId(data?.encodeId));
+        dispatch(actions.setPlay(true));
+        onSetPlaylist();
         !sidePlaylistCheck && onSetPlaylist();
     };
 

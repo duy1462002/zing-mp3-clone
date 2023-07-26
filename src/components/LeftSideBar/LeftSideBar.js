@@ -2,7 +2,6 @@ import {
     BankOutlined,
     CompassOutlined,
     DotChartOutlined,
-    LockOutlined,
     PlayCircleOutlined,
     PlusOutlined,
     StarOutlined,
@@ -23,12 +22,12 @@ const LeftSideBar = () => {
     const Menu_items = [
         { label: 'Discover', key: routes.discover, icon: <CompassOutlined /> },
         { label: '#zingchart', key: routes.zingchart, icon: <DotChartOutlined /> },
-        { label: 'Radio', key: routes.radio, icon: <LockOutlined /> },
-        { label: 'Library', key: routes.library, icon: <BankOutlined /> },
+        { label: 'Top 100', key: routes.top100, icon: <StarOutlined /> },
+        { label: 'Topic', key: routes.topic, icon: <TrophyFilled /> },
         { type: 'divider', icon: <BankOutlined /> },
         { label: 'Billboard', key: routes.billboard, icon: <CompassOutlined /> },
-        { label: 'Topic', key: routes.topic, icon: <TrophyFilled /> },
-        { label: 'Top 100', key: routes.top100, icon: <StarOutlined /> },
+        { label: 'Library', key: routes.library, icon: <BankOutlined /> },
+        
     ];
     const myMusic = {
         label: 'My playlists',

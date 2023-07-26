@@ -11,7 +11,7 @@ const SinglePlaylist = ({ data }) => {
         <div className={cx('wrapper')}>
             <h3>{data?.title}</h3>
             <Slider {...settingsPlaylist} arrows={false}>
-                    {data?.items.map((item, index) => (
+                    {data?.items?.map((item, index) => (
                         <PlaylistItem data={item} key={index}/>
                     ))}
                 </Slider>

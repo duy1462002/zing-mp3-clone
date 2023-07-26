@@ -15,6 +15,7 @@ function App() {
     useEffect(() => {
         dispatch(actions.getDiscover())
         dispatch(actions.getChart())
+        dispatch(actions.getTop100())
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
 

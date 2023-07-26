@@ -7,7 +7,8 @@ const initState = {
     chart: {},
     topSongs: [],
     chartHome: {},
-    artist: {}
+    artist: {},
+    top100: {},
 };
 
 const appReducer = (state = initState, action) => {
@@ -30,6 +31,11 @@ const appReducer = (state = initState, action) => {
             return {
                 ...state,
                 artist: action?.artist,
+            };
+        case actionTypes.GET_TOP100:
+            return {
+                ...state,
+                top100: action?.top100Data,
             };
         default:
             return state;
