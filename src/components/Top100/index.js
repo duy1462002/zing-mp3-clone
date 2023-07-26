@@ -11,7 +11,6 @@ const Top100 = ({ data, hideHeading = false }) => {
     const dispatch = useDispatch();
 
     const songsPlayAble = data?.filter((song) => song.isWorldWide);
-    console.log(songsPlayAble);
 
     const handleSetPlaylist = () => {
         dispatch(actions.setPlaylist(songsPlayAble));

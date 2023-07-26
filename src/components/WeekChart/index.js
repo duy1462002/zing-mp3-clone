@@ -9,7 +9,6 @@ const WeekChart = ({ data }) => {
     const [isVietNam, setIsVietNam] = useState(true);
     const [isKorea, setIsKorea] = useState(false);
     const [isUS, setIsUS] = useState(false);
-    console.log(data);
 
     const handleSetTab = (index) => {
         if(index === 1) {

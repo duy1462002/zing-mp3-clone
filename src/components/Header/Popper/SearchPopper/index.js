@@ -8,7 +8,6 @@ import PlaylistItem from '~/components/PlaylistItem';
 const cx = classNames.bind(styles);
 
 const SearchPopper = ({ data }) => {
-    console.log(data);
     return (
         <div className={cx('wrapper')}>
             <strong className={cx('title')}>Suggested for you</strong>

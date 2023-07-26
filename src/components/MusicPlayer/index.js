@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import classNames from 'classnames/bind';
 import style from './MusicPlayer.module.scss';
 import {
@@ -13,14 +13,14 @@ import {
     StepForwardOutlined,
     SwapOutlined,
     UnorderedListOutlined,
-    YoutubeOutlined,
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
-import { Col, Popover, Row, Slider } from 'antd';
+import { Button, Col, Modal, Popover, Row, Slider } from 'antd';
 import * as apis from '~/apis';
 import ClickAbleText from '../ClickAbleText';
 import PlaylistPopper from './PlaylistPopper';
+import Scrollbars from 'react-custom-scrollbars-2';
 
 const cx = classNames.bind(style);
 var intervalID;
@@ -34,22 +34,66 @@ const MusicPlayer = () => {
     const [isRepeat, setIsRepeat] = useState(false);
     const [mute, setMute] = useState(false);
     const [volumeValue, setVolumeValue] = useState(100);
+    const [isModalOpen, setIsModalOpen] = useState(false);
+    const [songLyrics, setSongLyrics] = useState('');
+    const [LyricsCheck, setLyricsCheck] = useState([]);
 
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
     }
+    //modal lyrics
+    const showModal = () => {
+        setIsModalOpen(true);
+    };
+    const handleOk = () => {
+        setIsModalOpen(false);
+    };
+    const handleCancel = () => {
+        setIsModalOpen(false);
+    };
+
+    const elementToScroll = useRef(null);
+
+    const scrollToElement = () => {
+        if (elementToScroll.current) {
+            elementToScroll.current.scrollIntoView({ behavior: 'smooth' });
+        }
+    };
+    useEffect(() => {
+        let audioTimer = audio.currentTime * 1000;
+        for (let i = 0; i < LyricsCheck.length; i++) {
+            if (audioTimer > LyricsCheck[i].startTime && audioTimer < LyricsCheck[i].endTime) {
+                LyricsCheck[i].isRunning = true;
+            } else {
+                LyricsCheck[i].isRunning = false;
+            }
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [audio.currentTime]);
 
     useEffect(() => {
         const fetchSong = async () => {
-            const [res1, res2] = await Promise.all([
+            const [res1, res2, res3] = await Promise.all([
                 apis.apiGetInfoSong(currentSongId),
                 apis.apiGetSong(currentSongId),
+                apis.apiGetSongLyrics(currentSongId),
             ]);
             if (res2.data.err === 0) {
                 audio.pause();
                 setAudio(new Audio(res2.data.data['128']));
                 if (res1.data.err === 0) {
                     setSongInfo(res1.data.data);
+                }
+                if (res3.data.err === 0) {
+                    setSongLyrics(res3.data.data.sentences);
+                    const Lyrics = res3.data.data.sentences.map((sentence) => {
+                        return {
+                            startTime: sentence?.words[0]?.startTime,
+                            endTime: sentence?.words[sentence?.words.length - 1]?.endTime,
+                            isRunning: false,
+                        };
+                    });
+                    setLyricsCheck(Lyrics);
                 }
             }
         };
@@ -199,7 +243,7 @@ const MusicPlayer = () => {
     useEffect(() => {
         //spacekey
         const handleKeyDown = (e) => {
-            if(!isSearching) {
+            if (!isSearching) {
                 if (e.code === 'Space') {
                     e.preventDefault();
                     if (songInfo) {
@@ -226,7 +270,6 @@ const MusicPlayer = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, audio, isSearching]);
-
     return (
         <div className={cx('wrapper')}>
             <Row>
@@ -243,7 +286,7 @@ const MusicPlayer = () => {
                                 <strong>{songInfo?.title}</strong>
                                 <div className={cx('artists-name')}>
                                     {songInfo?.artists.map((artist, index) => (
-                                        <ClickAbleText dataArtist = {artist} key={index}>
+                                        <ClickAbleText dataArtist={artist} key={index}>
                                             {artist?.name}
                                         </ClickAbleText>
                                     ))}
@@ -304,8 +347,57 @@ const MusicPlayer = () => {
                 </Col>
                 <Col xs={0} sm={0} md={8} lg={8} xl={8}>
                     <div className={cx('song-settings')}>
-                        <YoutubeOutlined className={cx('setting-btn')} />
-                        <AlignLeftOutlined className={cx('setting-btn')} />
+                        <AlignLeftOutlined className={cx('setting-btn')} onClick={showModal} />
+
+                        <Modal
+                            title={`Lyrics: ${songInfo?.title}`}
+                            open={isModalOpen}
+                            onOk={handleOk}
+                            onCancel={handleCancel}
+                            centered
+                            width={1000}
+                        >
+                            <div className={cx('lyrics-container')}>
+                                <div>
+                                    <img src={songInfo?.thumbnailM} alt="" />
+
+                                    <Button className={cx('scroll-btn')} type='primary' onClick={scrollToElement}>Scroll to running lyric</Button>
+                                </div>
+
+                                <div className={cx('lyrics-wrapper')}>
+                                    <Scrollbars
+                                        style={{ width: '100%' }}
+                                        autoHeight
+                                        autoHeightMin={100}
+                                        autoHeightMax={500}
+                                    >
+                                        {songLyrics ? (
+                                            songLyrics.map((sentence, index) => (
+                                                <div
+                                                    className={cx({
+                                                        lyricSentence: LyricsCheck[index].isRunning,
+                                                    })}
+                                                    ref={LyricsCheck[index].isRunning ? elementToScroll : null}
+                                                    key={index}
+                                                >
+                                                    {sentence?.words.map((word, index) => (
+                                                        <span
+                                                            className={cx('lyrics-word')}
+                                                            key={index}
+                                                        >
+                                                            {word?.data}
+                                                        </span>
+                                                    ))}
+                                                </div>
+                                            ))
+                                        ) : (
+                                            <h2>There's no lyrics for this song</h2>
+                                        )}
+                                    </Scrollbars>
+                                </div>
+                            </div>
+                        </Modal>
+
                         <div className={cx('volume-wrapper')}>
                             <SoundOutlined
                                 className={cx('volume-btn', { mute: mute })}
@@ -327,7 +419,7 @@ const MusicPlayer = () => {
                             overlayInnerStyle={{ padding: '6px', marginBottom: '12px' }}
                             placement="topLeft"
                         >
-                            {songs? <UnorderedListOutlined className={cx('list-btn')}/> : <></>}
+                            {songs ? <UnorderedListOutlined className={cx('list-btn')} /> : <></>}
                         </Popover>
                     </div>
                 </Col>

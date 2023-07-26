@@ -14,7 +14,6 @@ const Artist = () => {
     const { artist } = useSelector((state) => state.app);
     const { songs } = useSelector((state) => state.curMusic);
     const [isHavePlaylist, setIsHavePlaylist] = useState(true);
-    console.log(artist);
     useEffect(() => {
         if (artist?.playlistId) {
             const fetchDataPlaylist = async () => {
@@ -34,7 +33,6 @@ const Artist = () => {
 
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [artist]);
-    console.log(isHavePlaylist);
 
     const handlePlayPlaylist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
