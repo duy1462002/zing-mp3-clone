@@ -20,6 +20,13 @@ const actionTypes = {
 
     //GetTop100
     GET_TOP100: 'GET_TOP100',
+
+    //Set Login
+    LOGIN: 'LOGIN',
+    SET_SIGN_UP: 'SET_SIGN_UP',
+
+    //Set user
+    SET_USER: 'SET_USER',
 };
 
 export default actionTypes;

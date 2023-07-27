@@ -8,6 +8,7 @@ import "~/GlobalStyle/SlickCustom.css"
 import { useEffect } from 'react';
 import * as actions from '~/store/actions'
 import { useDispatch } from 'react-redux';
+import AuthDetails from './components/auth/AuthDetails';
 
 function App() {
     const dispatch = useDispatch();
@@ -27,6 +28,7 @@ function App() {
                     return <Route key={index} path={route.path} element={<Layout><Page /></Layout>} />;
                 })}
             </Routes>
+            <AuthDetails/>
         </div>
     );
 }

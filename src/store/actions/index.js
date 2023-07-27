@@ -3,3 +3,4 @@ export * from './curMusic';
 export * from './chartHome';
 export * from './curArtist';
 export * from './top100';
+export * from './login';

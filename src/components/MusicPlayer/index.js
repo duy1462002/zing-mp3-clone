@@ -52,7 +52,7 @@ const MusicPlayer = () => {
         setIsModalOpen(false);
     };
 
-    const elementToScroll = useRef(null);
+    const elementToScroll = useRef();
 
     const scrollToElement = () => {
         if (elementToScroll.current) {
@@ -354,6 +354,7 @@ const MusicPlayer = () => {
                             open={isModalOpen}
                             onOk={handleOk}
                             onCancel={handleCancel}
+                            footer={null}
                             centered
                             width={1000}
                         >

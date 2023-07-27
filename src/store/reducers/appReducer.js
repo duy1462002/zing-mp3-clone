@@ -9,6 +9,9 @@ const initState = {
     chartHome: {},
     artist: {},
     top100: {},
+    isLogin: false,
+    isSignUpContent: false,
+    user: {}
 };
 
 const appReducer = (state = initState, action) => {
@@ -36,6 +39,21 @@ const appReducer = (state = initState, action) => {
             return {
                 ...state,
                 top100: action?.top100Data,
+            };
+        case actionTypes.LOGIN:
+            return {
+                ...state,
+                isLogin: action?.flag,
+            };
+        case actionTypes.SET_SIGN_UP:
+            return {
+                ...state,
+                isSignUpContent: action?.flag,
+            };
+        case actionTypes.SET_USER:
+            return {
+                ...state,
+                user: action?.user,
             };
         default:
             return state;

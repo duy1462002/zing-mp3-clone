@@ -5,7 +5,6 @@ import {
     PlayCircleOutlined,
     PlusOutlined,
     StarOutlined,
-    TrophyFilled,
 } from '@ant-design/icons';
 import logo from '~/assets/logo-dark.svg';
 import classNames from 'classnames/bind';
@@ -14,16 +13,17 @@ import MenuAntDesign from './Menu';
 import { Button } from 'antd';
 import { useNavigate } from 'react-router-dom';
 import routes from '~/config/routes';
+import { useSelector } from 'react-redux';
 const cx = classNames.bind(styles);
 
 const LeftSideBar = () => {
+    const {isLogin} = useSelector(state => state.app)
     const navigate = useNavigate();
 
     const Menu_items = [
         { label: 'Discover', key: routes.discover, icon: <CompassOutlined /> },
         { label: '#zingchart', key: routes.zingchart, icon: <DotChartOutlined /> },
         { label: 'Top 100', key: routes.top100, icon: <StarOutlined /> },
-        { label: 'Topic', key: routes.topic, icon: <TrophyFilled /> },
         { type: 'divider', icon: <BankOutlined /> },
         { label: 'Billboard', key: routes.billboard, icon: <CompassOutlined /> },
         { label: 'Library', key: routes.library, icon: <BankOutlined /> },
@@ -41,9 +41,7 @@ const LeftSideBar = () => {
         ],
     };
 
-    const currentUser = true;
-
-    if (currentUser) {
+    if (isLogin) {
         Menu_items.push(myMusic);
     }
 
@@ -56,7 +54,7 @@ const LeftSideBar = () => {
             <div className={cx('menu-wrapper')}>
                 <MenuAntDesign data={Menu_items} />
 
-                {currentUser ? (
+                {isLogin ? (
                     <>
                     </>
                 ) : (
