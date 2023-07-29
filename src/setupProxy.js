@@ -4,7 +4,7 @@ module.exports = function(app) {
   app.use(
     '/api',
     createProxyMiddleware({
-      target: 'https://api-zingmp3-vercel.vercel.app/', // Địa chỉ máy chủ backend
+      target: 'https://api-zingmp3-vercel.vercel.app', // Địa chỉ máy chủ backend
       changeOrigin: true,
     })
   );

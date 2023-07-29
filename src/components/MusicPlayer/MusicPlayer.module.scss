@@ -160,4 +160,8 @@
     font-size: 22px;
 }
 
-
+.heart {
+    &:hover {
+        color: var(--primary);
+    }
+}

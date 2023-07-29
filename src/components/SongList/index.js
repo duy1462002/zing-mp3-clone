@@ -8,7 +8,7 @@ import { useSelector } from 'react-redux/es/hooks/useSelector';
 
 const cx = classNames.bind(style);
 
-const SongList = () => {
+const SongList = ({deleteAble}) => {
     const { songs } = useSelector((state) => state.curMusic);
 
     return (
@@ -31,7 +31,7 @@ const SongList = () => {
                 style={{ margin: 0, backgroundColor: 'gray', opacity: 0.3 }}
             />
             <div className={cx('song-lists')}>
-                {songs?.map(song => <SongItem key={song?.encodeId} data={song}/>)}
+                {songs?.map(song => <SongItem key={song?.encodeId} data={song} deleteAble={deleteAble}/>)}
             </div>
 
             <div className={cx('total-songs')}>{`Total: ${songs?.length} songs`}</div>

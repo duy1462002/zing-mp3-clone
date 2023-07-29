@@ -4,7 +4,6 @@ import style from './MusicPlayer.module.scss';
 import {
     AlignLeftOutlined,
     HeartOutlined,
-    MoreOutlined,
     PauseCircleOutlined,
     PlayCircleOutlined,
     RetweetOutlined,
@@ -16,16 +15,19 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
-import { Button, Col, Modal, Popover, Row, Slider } from 'antd';
+import { Button, Col, Modal, Popover, Row, Slider, message } from 'antd';
 import * as apis from '~/apis';
 import ClickAbleText from '../ClickAbleText';
 import PlaylistPopper from './PlaylistPopper';
 import Scrollbars from 'react-custom-scrollbars-2';
+import { doc, setDoc } from 'firebase/firestore';
+import { usersRef } from '~/firebase';
 
 const cx = classNames.bind(style);
 var intervalID;
 const MusicPlayer = () => {
     const dispatch = useDispatch();
+    const { user, userData } = useSelector((state) => state.app);
     const { currentSongId, isPlaying, songs, isSearching } = useSelector((state) => state.curMusic);
     const [audio, setAudio] = useState(new Audio());
     const [songInfo, setSongInfo] = useState(null);
@@ -37,6 +39,7 @@ const MusicPlayer = () => {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [songLyrics, setSongLyrics] = useState('');
     const [LyricsCheck, setLyricsCheck] = useState([]);
+    const [messageApi, contextHolder] = message.useMessage();
 
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
@@ -61,7 +64,7 @@ const MusicPlayer = () => {
     };
     useEffect(() => {
         let audioTimer = audio.currentTime * 1000;
-        for (let i = 0; i < LyricsCheck.length; i++) {
+        for (let i = 0; i < LyricsCheck?.length; i++) {
             if (audioTimer > LyricsCheck[i].startTime && audioTimer < LyricsCheck[i].endTime) {
                 LyricsCheck[i].isRunning = true;
             } else {
@@ -86,7 +89,7 @@ const MusicPlayer = () => {
                 }
                 if (res3.data.err === 0) {
                     setSongLyrics(res3.data.data.sentences);
-                    const Lyrics = res3.data.data.sentences.map((sentence) => {
+                    const Lyrics = res3.data.data.sentences?.map((sentence) => {
                         return {
                             startTime: sentence?.words[0]?.startTime,
                             endTime: sentence?.words[sentence?.words.length - 1]?.endTime,
@@ -270,8 +273,30 @@ const MusicPlayer = () => {
         };
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [isPlaying, audio, isSearching]);
+
+    //add favorite music
+    const handleAddFavorite = () => {  
+        if (userData?.songs.find(song => song?.encodeId === songInfo?.encodeId)) {
+            messageApi.open({
+                type: 'warning',
+                content: 'This song is already in your playlist...',
+              });
+        } else {
+            const newUserData = userData;
+            newUserData?.songs.push(songInfo);
+            setDoc(doc(usersRef, `${user?.uid}`), newUserData);
+            dispatch(actions.setUserData(newUserData));
+            messageApi.open({
+                type: 'success',
+                content: 'Added to your playlist!',
+              });
+        }
+    }
+
+
     return (
         <div className={cx('wrapper')}>
+            {contextHolder}
             <Row>
                 <Col xs={12} sm={12} md={8} lg={8} xl={8}>
                     {songInfo ? (
@@ -294,8 +319,7 @@ const MusicPlayer = () => {
                             </div>
 
                             <div className={cx('icons')}>
-                                <HeartOutlined />
-                                <MoreOutlined />
+                                <HeartOutlined onClick={handleAddFavorite} className={cx('heart')}/>
                             </div>
                         </div>
                     ) : (

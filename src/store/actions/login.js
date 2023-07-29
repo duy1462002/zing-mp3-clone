@@ -13,3 +13,8 @@ export const setUser = (user) => ({
     type: actionTypes.SET_USER,
     user
 })
+
+export const setUserData = (userData) => ({
+    type: actionTypes.SET_USER_DATA,
+    userData
+})

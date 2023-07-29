@@ -10,8 +10,7 @@ const Top100 = () => {
     console.log(top100);
     return (
         <div className={cx('wrapper')}>
-            
-            {top100?.map((playlist, index) => (
+            {top100?.data?.map((playlist, index) => (
                 <SinglePlaylist key={index} data={playlist} />
             ))}
         </div>

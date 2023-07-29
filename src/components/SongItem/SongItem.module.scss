@@ -81,3 +81,16 @@
     text-overflow: ellipsis;
     overflow: hidden;
 }
+
+.heart {
+    &:hover {
+        color: var(--primary);
+    }
+}
+
+.delete-btn {
+    font-size: 12px;
+    &:hover {
+        color: var(--primary);
+    }
+}

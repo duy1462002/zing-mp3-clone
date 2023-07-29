@@ -7,7 +7,7 @@ export const getTop100 = () => async (dispatch) => {
         if (response?.data.err === 0) {
             dispatch({
                 type: actionTypes.GET_TOP100,
-                top100Data: response?.data?.data,
+                top100Data: response?.data,
             })
         }
         else {

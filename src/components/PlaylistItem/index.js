@@ -24,7 +24,7 @@ const PlaylistItem = ({ data }) => {
                 <div className={cx('bottom-info')}>
                     <p>Playlist -</p>
                     <div className={cx('artists')}>
-                        {data?.artists.map((artist, index) => (
+                        {data?.artists?.map((artist, index) => (
                             <ClickAbleText dataArtist={artist} key={index}>
                                 {artist?.name}
                             </ClickAbleText>

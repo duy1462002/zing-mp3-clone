@@ -12,9 +12,11 @@ import { signOut } from 'firebase/auth';
 import { auth } from '~/firebase';
 import { useDispatch } from 'react-redux';
 import * as actions from '~/store/actions';
+import { useNavigate } from 'react-router-dom';
 const cx = classNames.bind(style);
 
 const AvatarPopper = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
 
     const { isLogin, isSignUpContent, user } = useSelector((state) => state.app);
@@ -23,6 +25,8 @@ const AvatarPopper = () => {
     const handleLogout = () => {
         signOut(auth).then(() => {
             dispatch(actions.setLogin(false));
+            dispatch(actions.logoutSuccess());
+            navigate('/');
         })
         .catch(err => console.log(err))
     }

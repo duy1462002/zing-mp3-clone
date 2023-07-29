@@ -4,11 +4,9 @@ import style from './SettingPopper.module.scss';
 import PopperItem from '../PopperItem';
 import {
     AlipayCircleOutlined,
-    BgColorsOutlined,
     ContactsOutlined,
     InfoCircleOutlined,
     LockOutlined,
-    RightOutlined,
     TrademarkCircleFilled,
 } from '@ant-design/icons';
 import CustomSeparate from '~/components/CustomSeparate';
@@ -32,11 +30,6 @@ const SettingPopper = () => {
 
     return (
         <div className={cx('wrapper')}>
-            <PopperItem
-                text="Change theme"
-                iconLeft={<BgColorsOutlined />}
-                iconRight={<RightOutlined />}
-            />
             <PopperItem text="Info" iconLeft={<InfoCircleOutlined />} onClick={handleOpenModal} />
 
             <Modal title="Zing Mp3" open={isModalOpen} onOk={handleOk} onCancel={handleCancel}>

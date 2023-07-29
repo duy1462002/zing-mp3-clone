@@ -27,6 +27,14 @@ const actionTypes = {
 
     //Set user
     SET_USER: 'SET_USER',
+
+    //Set user data
+    SET_USER_DATA: 'SET_USER_DATA',
+
+    //Auth
+    LOGIN_SUCCESS: 'LOGIN_SUCCESS',
+    LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
+
 };
 
 export default actionTypes;

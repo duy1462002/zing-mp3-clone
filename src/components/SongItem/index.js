@@ -1,33 +1,74 @@
-import React from 'react';
 import classNames from 'classnames/bind';
 import style from './SongItem.module.scss';
-import { Col, Divider, Row } from 'antd';
-import { HeartOutlined } from '@ant-design/icons';
+import { Col, Divider, Row, message } from 'antd';
+import { CloseOutlined, HeartOutlined } from '@ant-design/icons';
 import ClickAbleText from '../ClickAbleText';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
+import { doc, setDoc } from 'firebase/firestore';
+import { usersRef } from '~/firebase';
+
 const cx = classNames.bind(style);
 
-const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null }) => {
+const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble = false }) => {
+    const [messageApi, contextHolder] = message.useMessage();
+    const { user, userData } = useSelector((state) => state.app);
     const { currentSongId } = useSelector((state) => state.curMusic);
-
     const dispatch = useDispatch();
+
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
     }
-
     const handlePlayMusic = () => {
         dispatch(actions.setCurSongId(data?.encodeId));
         dispatch(actions.setPlay(true));
         onSetPlaylist();
     };
 
+    const handleAddFavorite = () => {
+        if (userData?.songs.find(song => song?.encodeId === data?.encodeId)) {
+            messageApi.open({
+                type: 'warning',
+                content: 'This song is already in your playlist...',
+              });
+        } else {
+            const newUserData = userData;
+            newUserData?.songs.push(data);
+            setDoc(doc(usersRef, `${user?.uid}`), newUserData);
+            dispatch(actions.setUserData(newUserData));
+            messageApi.open({
+                type: 'success',
+                content: 'Added to your playlist!',
+              });
+        }
+    };
+
+    const handleDeleteSong = () => {
+        const index = userData?.songs.indexOf(data);
+        const newUserData = userData;
+        if(index !== -1) {
+            newUserData?.songs.splice(index, 1);
+            setDoc(doc(usersRef, `${user?.uid}`), newUserData);
+        }
+        dispatch(actions.setUserData(newUserData));
+    };
+
     return (
         <div className={cx('wrapper', { active: data.encodeId === currentSongId })}>
+            {contextHolder}
             <div className={cx('song-item')}>
                 <Row>
                     <Col span={12} className={cx('first-column')}>
-                        {topNumber ? <h3 className={cx('top-number')}>{topNumber}</h3> :<HeartOutlined />}
+                        {topNumber ? (
+                            <h3 className={cx('top-number')}>{topNumber}</h3>
+                        ) : deleteAble ? (
+                            <CloseOutlined
+                                className={cx('delete-btn')}
+                                onClick={handleDeleteSong}
+                            />
+                        ) : (
+                            <HeartOutlined onClick={handleAddFavorite} className={cx('heart')} />
+                        )}
                         <img
                             onClick={handlePlayMusic}
                             className={cx('song-img')}
@@ -40,10 +81,10 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null }) => {
                             </strong>
                             <div className={cx('artists')}>
                                 {data?.artists?.map((artist, index) => (
-                                            <ClickAbleText dataArtist = {artist} key={index}>
-                                                {artist?.name}
-                                            </ClickAbleText>
-                                        ))}
+                                    <ClickAbleText dataArtist={artist} key={index}>
+                                        {artist?.name}
+                                    </ClickAbleText>
+                                ))}
                             </div>
                         </div>
                     </Col>

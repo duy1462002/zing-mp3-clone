@@ -4,7 +4,6 @@ import styles from './Header.module.scss';
 import {
     ArrowLeftOutlined,
     ArrowRightOutlined,
-    DownloadOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
@@ -70,15 +69,6 @@ const Header = ({ isScroll }) => {
             </div>
 
             <div className={cx('nav-container')}>
-                <Button
-                    className={cx('download-btn')}
-                    type="primary"
-                    shape="round"
-                    icon={<DownloadOutlined />}
-                >
-                    Download for Windows
-                </Button>
-
                 <Popover
                     content={<SettingPopper />}
                     trigger="click"

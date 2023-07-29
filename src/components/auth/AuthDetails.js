@@ -19,11 +19,13 @@ const AuthDetails = () => {
         return () => {
             listen();
         }
-    }, [])
+    }, []) 
     useEffect(() => {
         dispatch(actions.setUser(authUser));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [authUser])
+
+    
     
     return <></>;
 };

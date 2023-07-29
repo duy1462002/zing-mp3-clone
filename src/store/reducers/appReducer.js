@@ -11,7 +11,8 @@ const initState = {
     top100: {},
     isLogin: false,
     isSignUpContent: false,
-    user: {}
+    user: {},
+    userData: {}
 };
 
 const appReducer = (state = initState, action) => {
@@ -28,17 +29,17 @@ const appReducer = (state = initState, action) => {
         case actionTypes.GET_CHART:
             return {
                 ...state,
-                chartHome: action?.chartData,
+                chartHome: action?.chartData || null,
             };
         case actionTypes.GET_ARTIST:
             return {
                 ...state,
-                artist: action?.artist,
+                artist: action?.artist || null,
             };
         case actionTypes.GET_TOP100:
             return {
                 ...state,
-                top100: action?.top100Data,
+                top100: action?.top100Data || null,
             };
         case actionTypes.LOGIN:
             return {
@@ -54,6 +55,11 @@ const appReducer = (state = initState, action) => {
             return {
                 ...state,
                 user: action?.user,
+            };
+        case actionTypes.SET_USER_DATA:
+            return {
+                ...state,
+                userData: action?.userData,
             };
         default:
             return state;
