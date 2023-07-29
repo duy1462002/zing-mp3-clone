@@ -10,7 +10,7 @@ const commonConfig = {
     storage: storage,
     stateReconciler: autoMergeLevel2,
     key: 'root',
-    whitelist: ['isLogin']
+    whitelist: ['isLogin', 'userData']
 }
 
 const musicConfig = {

@@ -52,6 +52,16 @@
     overflow: hidden;
 }
 
+.album-title {
+    color: var(--opacity-text);
+    cursor: pointer;
+    font-size: 12px;
+    &:hover {
+        color: var(--primary);
+        text-decoration: underline;
+    }
+}
+
 .second-col {
     display: flex;
     align-items: center;

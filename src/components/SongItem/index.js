@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
 import { doc, setDoc } from 'firebase/firestore';
 import { usersRef } from '~/firebase';
+import { useNavigate } from 'react-router-dom';
 
 const cx = classNames.bind(style);
 
@@ -15,22 +16,32 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble
     const { user, userData } = useSelector((state) => state.app);
     const { currentSongId } = useSelector((state) => state.curMusic);
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     function convertDuration(time) {
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
     }
     const handlePlayMusic = () => {
+        console.log(data);
         dispatch(actions.setCurSongId(data?.encodeId));
         dispatch(actions.setPlay(true));
         onSetPlaylist();
     };
 
+    const handlePlayPlaylist = () => {
+        const playlistPath = data?.album?.link?.split('.')[0];
+        const playlistPath2 = playlistPath.split('/');
+        playlistPath2[1] = 'playlist';
+        const playlistPath3 = playlistPath2.join('/');
+        navigate(playlistPath3);
+    };
+
     const handleAddFavorite = () => {
-        if (userData?.songs.find(song => song?.encodeId === data?.encodeId)) {
+        if (userData?.songs.find((song) => song?.encodeId === data?.encodeId)) {
             messageApi.open({
                 type: 'warning',
                 content: 'This song is already in your playlist...',
-              });
+            });
         } else {
             const newUserData = userData;
             newUserData?.songs.push(data);
@@ -39,14 +50,14 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble
             messageApi.open({
                 type: 'success',
                 content: 'Added to your playlist!',
-              });
+            });
         }
     };
 
-    const handleDeleteSong = () => {
+    const handleDeleteSong = (data) => {
         const index = userData?.songs.indexOf(data);
         const newUserData = userData;
-        if(index !== -1) {
+        if (index !== -1) {
             newUserData?.songs.splice(index, 1);
             setDoc(doc(usersRef, `${user?.uid}`), newUserData);
         }
@@ -89,9 +100,9 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble
                         </div>
                     </Col>
                     <Col span={10} className={cx('second-col')}>
-                        <ClickAbleText className={cx('album-title')}>
+                        <p className={cx('album-title')} onClick={() => handlePlayPlaylist(data)}>
                             {data?.album?.title}
-                        </ClickAbleText>
+                        </p>
                     </Col>
                     <Col span={2} className={cx('third-col')}>
                         <p>{convertDuration(data?.duration)}</p>

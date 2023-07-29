@@ -4,7 +4,7 @@ import * as apis from '~/apis';
 import classNames from 'classnames/bind';
 import style from './Playlist.module.scss';
 import { Button } from 'antd';
-import { HeartOutlined, MoreOutlined, PlayCircleTwoTone } from '@ant-design/icons';
+import { HeartOutlined, PlayCircleTwoTone } from '@ant-design/icons';
 import SongList from '~/components/SongList';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useDispatch, useSelector } from 'react-redux';
@@ -32,7 +32,7 @@ const Playlist = () => {
 
         fetchDataPlaylist();
         // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, []);
+    }, [id]);
 
     const handlePlayPlaylist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
@@ -48,20 +48,6 @@ const Playlist = () => {
                 <div className={cx('playlist-content')}>
                     <div className={cx('info')}>
                         <h3>{playlistData?.title}</h3>
-                        {/* <div className={cx('artists-names')}>
-                            <ClickAbleText>
-                                {playlistData?.artists[0].name},
-                            </ClickAbleText>
-                            <ClickAbleText>
-                                {playlistData?.artists[1].name},
-                            </ClickAbleText>
-                            <ClickAbleText>
-                                {playlistData?.artists[2].name},
-                            </ClickAbleText>
-                            <ClickAbleText>
-                                {playlistData?.artists[3].name}
-                            </ClickAbleText>
-                        </div> */}
                         <p>{playlistData?.like} likes</p>
                         <p>{playlistData?.listen} listens</p>
                     </div>
@@ -79,7 +65,6 @@ const Playlist = () => {
 
                         <div className={cx('icons')}>
                             <HeartOutlined className={cx('icon')} />
-                            <MoreOutlined className={cx('icon')} />
                         </div>
                     </div>
                 </div>

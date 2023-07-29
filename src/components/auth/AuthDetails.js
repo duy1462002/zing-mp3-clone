@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { auth } from '~/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useDispatch } from 'react-redux';
-import * as actions from "~/store/actions"
+import * as actions from "~/store/actions";
 const AuthDetails = () => {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useState(null)
@@ -23,9 +23,8 @@ const AuthDetails = () => {
     useEffect(() => {
         dispatch(actions.setUser(authUser));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-    }, [authUser])
+    }, [authUser]);
 
-    
     
     return <></>;
 };
