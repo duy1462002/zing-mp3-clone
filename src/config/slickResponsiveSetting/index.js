@@ -39,7 +39,15 @@ export var settingsPlaylist = {
     initialSlide: 0,
     responsive: [
         {
-            breakpoint: 1024,
+            breakpoint: 1600,
+            settings: {
+                slidesToShow: 5,
+                slidesToScroll: 5,
+                infinite: true,         
+            },
+        },
+        {
+            breakpoint: 1400,
             settings: {
                 slidesToShow: 4,
                 slidesToScroll: 4,
@@ -47,18 +55,19 @@ export var settingsPlaylist = {
             },
         },
         {
-            breakpoint: 600,
+            breakpoint: 1170,
             settings: {
                 slidesToShow: 3,
                 slidesToScroll: 3,
-                initialSlide: 2,
+                infinite: true,
             },
         },
         {
-            breakpoint: 480,
+            breakpoint: 950,
             settings: {
                 slidesToShow: 2,
                 slidesToScroll: 2,
+                infinite: true,
             },
         },
     ],

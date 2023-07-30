@@ -22,7 +22,6 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble
         return Math.floor(time / 60) + ':' + ('0' + Math.floor(time % 60)).slice(-2);
     }
     const handlePlayMusic = () => {
-        console.log(data);
         dispatch(actions.setCurSongId(data?.encodeId));
         dispatch(actions.setPlay(true));
         onSetPlaylist();
@@ -54,7 +53,7 @@ const SongItem = ({ data, onSetPlaylist = () => {}, topNumber = null, deleteAble
         }
     };
 
-    const handleDeleteSong = (data) => {
+    const handleDeleteSong = () => {
         const index = userData?.songs.indexOf(data);
         const newUserData = userData;
         if (index !== -1) {

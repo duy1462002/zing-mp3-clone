@@ -4,7 +4,7 @@ import styles from './SearchPopper.module.scss';
 import ArtistItem from '~/components/ArtistItem';
 import SongCommomItem from '~/components/SongCommonItem';
 import Scrollbars from 'react-custom-scrollbars-2';
-import PlaylistItem from '~/components/PlaylistItem';
+import PlaylistItem from '~/components/PlaylistItemSearch';
 const cx = classNames.bind(styles);
 
 const SearchPopper = ({ data }) => {

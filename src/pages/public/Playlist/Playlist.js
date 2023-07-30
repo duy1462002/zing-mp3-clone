@@ -3,22 +3,26 @@ import { useParams } from 'react-router-dom';
 import * as apis from '~/apis';
 import classNames from 'classnames/bind';
 import style from './Playlist.module.scss';
-import { Button } from 'antd';
+import { Button, message } from 'antd';
 import { HeartOutlined, PlayCircleTwoTone } from '@ant-design/icons';
 import SongList from '~/components/SongList';
 import { Scrollbars } from 'react-custom-scrollbars-2';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from "~/store/actions"
+import { doc, setDoc } from 'firebase/firestore';
+import { usersRef } from '~/firebase';
 const cx = classNames.bind(style);
 
 const Playlist = () => {
+    const [messageApi, contextHolder] = message.useMessage();
+
     const dispatch = useDispatch();
     // eslint-disable-next-line no-unused-vars
     const { title, id } = useParams();
     const [playlistData, setPlaylistData] = useState(null);
     const { songs } = useSelector((state) => state.curMusic);
-
-
+    const { user, userData } = useSelector((state) => state.app);
+    console.log(playlistData);
     useEffect(() => {
         const fetchDataPlaylist = async () => {
             const res = await apis.apiGetPlaylist(id);
@@ -38,8 +42,27 @@ const Playlist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
     }
 
+    const handleAddFavorite = () => {
+        if (userData?.playlists.find((playlist) => playlist?.encodeId === id)) {
+            messageApi.open({
+                type: 'warning',
+                content: 'This playlist is already in your library...',
+            });
+        } else {
+            const newUserData = userData;
+            newUserData?.playlists.push(playlistData);
+            setDoc(doc(usersRef, `${user?.uid}`), newUserData);
+            dispatch(actions.setUserData(newUserData));
+            messageApi.open({
+                type: 'success',
+                content: 'Added to your library!',
+            });
+        }
+    }
+
     return (
         <div className={cx('wrapper')}>
+            {contextHolder}
             <div className={cx('left-content')}>
                 <div className={cx('thumbnail')}>
                     <img className={cx('thumbnail-img')} src={playlistData?.thumbnailM} alt="" />
@@ -64,7 +87,7 @@ const Playlist = () => {
                         </Button>
 
                         <div className={cx('icons')}>
-                            <HeartOutlined className={cx('icon')} />
+                            {playlistData && <HeartOutlined className={cx('icon')} onClick={handleAddFavorite}/>}
                         </div>
                     </div>
                 </div>

@@ -17,6 +17,7 @@
 
 ::placeholder {
     color: var(--text-color)!important;
+    opacity: 0.6;
 }
 
 * {

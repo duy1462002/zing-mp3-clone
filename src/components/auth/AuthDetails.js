@@ -7,6 +7,7 @@ const AuthDetails = () => {
     const dispatch = useDispatch();
     const [authUser, setAuthUser] = useState(null)
 
+
     useEffect(() => {
         const listen = onAuthStateChanged(auth, (user) => {
             if(user) {
@@ -24,7 +25,6 @@ const AuthDetails = () => {
         dispatch(actions.setUser(authUser));
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [authUser]);
-
     
     return <></>;
 };
