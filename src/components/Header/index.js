@@ -56,7 +56,7 @@ const Header = ({ isScroll }) => {
                 <ArrowLeftOutlined className={cx('lr-button')} onClick={handleGoBack} />
                 <ArrowRightOutlined className={cx('lr-button')} onClick={handleGoForward} />
 
-                <Popover content={<SearchPopper data={dataSearch}/>} trigger="click" arrow={false} color="#34224f">
+                <Popover content={<SearchPopper data={dataSearch} className={cx('search-popper')}/>} trigger="click" arrow={false} color="#34224f">
                     <Search
                         style={{
                             width: 400,

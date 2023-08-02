@@ -27,7 +27,12 @@ const Top100 = ({ data, hideHeading = false }) => {
             ) : (
                 <h3 className={cx('heading')}>#top100</h3>
             )}
-            <Scrollbars style={{ height: 'calc(100vh - 96px)', width: '100%' }}>
+            <Scrollbars
+                autoHeight
+                autoHeightMin={100}
+                autoHeightMax={400}
+                style={{ width: '100%' }}
+            >
                 {songsPlayAble?.map((song, index) => (
                     <SongItem
                         key={song?.encodeId}

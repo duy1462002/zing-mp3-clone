@@ -7,9 +7,9 @@ import Scrollbars from 'react-custom-scrollbars-2';
 import PlaylistItem from '~/components/PlaylistItemSearch';
 const cx = classNames.bind(styles);
 
-const SearchPopper = ({ data }) => {
+const SearchPopper = ({ data, className }) => {
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', className)}>
             <strong className={cx('title')}>Suggested for you</strong>
             <Scrollbars
                 autoHeight

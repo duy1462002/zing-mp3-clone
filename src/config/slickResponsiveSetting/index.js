@@ -7,7 +7,7 @@ export var settings = {
     initialSlide: 0,
     responsive: [
         {
-            breakpoint: 1024,
+            breakpoint: 1170,
             settings: {
                 slidesToShow: 2,
                 slidesToScroll: 2,

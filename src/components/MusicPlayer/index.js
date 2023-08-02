@@ -298,7 +298,7 @@ const MusicPlayer = () => {
         <div className={cx('wrapper')}>
             {contextHolder}
             <Row>
-                <Col xs={12} sm={12} md={8} lg={8} xl={8}>
+                <Col xs={0} sm={0} md={8} lg={8} xl={8}>
                     {songInfo ? (
                         <div className={cx('song-info')}>
                             <img
@@ -326,7 +326,7 @@ const MusicPlayer = () => {
                         <h3>Let's pick a song</h3>
                     )}
                 </Col>
-                <Col xs={12} sm={12} md={8} lg={8} xl={8}>
+                <Col xs={24} sm={24} md={8} lg={8} xl={8}>
                     <div className={cx('song-player')}>
                         <div className={cx('actions')}>
                             <SwapOutlined

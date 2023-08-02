@@ -104,3 +104,14 @@
         color: var(--primary);
     }
 }
+
+@media screen and (max-width: 600px) {
+    .song-info {
+        strong {
+            max-width: 50%;      
+        }
+    }
+    .artists {
+        max-width: 60%;
+    }
+}

@@ -8,7 +8,6 @@
     align-items: center;
     justify-content: space-between;
     z-index: 99;
-    min-width: 660px;
     padding: 0 var(--padding-content);
 }
 
@@ -48,7 +47,6 @@
     align-items: center;
 } 
 
-.download-btn,
 .setting-btn {
     background-color: var(--search-color);
     margin-right: 12px;
@@ -84,3 +82,16 @@
         display: none;
     }
 }
+
+@media screen and (max-width: 600px) {
+    .search {
+        width: 100%!important;
+    }
+    .setting-btn {
+        display: none;
+    }
+    .search-popper {
+        width: 100vw!important;
+    }
+}
+

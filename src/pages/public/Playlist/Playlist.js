@@ -40,6 +40,7 @@ const Playlist = () => {
 
     const handlePlayPlaylist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
+        dispatch(actions.setPlay(true));
     }
 
     const handleAddFavorite = () => {

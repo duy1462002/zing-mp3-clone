@@ -9,7 +9,7 @@
 }
 
 .content {
-    height: 100%;
+    height: auto;
     width: calc(100% - 240px);
     margin-left: 240px;
     padding: 0 var(--padding-content);
@@ -18,10 +18,15 @@
     flex-direction: column;
 }
 
+.player-wrapper {
+    height: 90px;
+}
+
 @media screen and (max-width: 950px) {
     .content {
         margin-left: 0;
         width: 100%;
+        padding: 70px 8px 0;
     }
     .overlay {
         position: fixed;

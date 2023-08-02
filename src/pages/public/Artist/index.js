@@ -20,8 +20,8 @@ const Artist = () => {
                 const res = await apis.apiGetPlaylist(artist?.playlistId);
                 if (res.data.err === 0) {
                     let songsFetched = res?.data?.data?.song?.items;
-                    const songsPlayAble = songsFetched.filter((song) => song.isWorldWide);                
-                    dispatch(actions.setPlaylist(songsPlayAble)); 
+                    const songsPlayAble = songsFetched.filter((song) => song.isWorldWide);
+                    dispatch(actions.setPlaylist(songsPlayAble));
                 } else {
                     setIsHavePlaylist(false);
                 }
@@ -36,6 +36,7 @@ const Artist = () => {
 
     const handlePlayPlaylist = () => {
         dispatch(actions.setCurSongId(songs[0].encodeId));
+        dispatch(actions.setPlay(true));
     };
 
     return (
@@ -51,12 +52,21 @@ const Artist = () => {
             </div>
 
             <div>
-                {isHavePlaylist ? <Scrollbars style={{ height: 'calc(100vh - 92px - 96px - 120px)', width: '100%' }}>
-                    <div className={cx('song-list')}>
-                        <h3>Songs by {artist?.name}</h3>
-                        <SongList />
-                    </div>
-                </Scrollbars> : <h2 style={{marginTop: 16}}>This artist have no playlist</h2>}
+                {isHavePlaylist ? (
+                    <Scrollbars
+                        style={{ width: '100%' }}
+                        autoHeight
+                        autoHeightMin={100}
+                        autoHeightMax={430}
+                    >
+                        <div className={cx('song-list')}>
+                            <h3>Songs by {artist?.name}</h3>
+                            <SongList />
+                        </div>
+                    </Scrollbars>
+                ) : (
+                    <h2 style={{ marginTop: 16 }}>This artist have no playlist</h2>
+                )}
             </div>
         </div>
     );

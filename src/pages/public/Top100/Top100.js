@@ -7,7 +7,6 @@ const cx = classNames.bind(style);
 
 const Top100 = () => {
     const { top100 } = useSelector((state) => state.app);
-    console.log(top100);
     return (
         <div className={cx('wrapper')}>
             {top100?.data?.map((playlist, index) => (

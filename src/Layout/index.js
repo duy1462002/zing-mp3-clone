@@ -33,13 +33,10 @@ const Layout = ({ children }) => {
     }, []);
 
     useEffect(() => {
-        console.log(windowWidth);
         if (windowWidth > 950) {
             dispatch(actions.setMenuShow(true));
-            console.log('show');
         } else {
             dispatch(actions.setMenuShow(false));
-            console.log('hide');
         }
         // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [windowWidth]);
