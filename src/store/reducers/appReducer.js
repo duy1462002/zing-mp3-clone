@@ -12,7 +12,8 @@ const initState = {
     isLogin: false,
     isSignUpContent: false,
     user: {},
-    userData: {}
+    userData: {},
+    isMenuShow: false,
 };
 
 const appReducer = (state = initState, action) => {
@@ -61,6 +62,11 @@ const appReducer = (state = initState, action) => {
                 ...state,
                 userData: action?.userData,
             };
+            case actionTypes.SET_MENU_SHOW:
+        return {
+            ...state,
+            isMenuShow: action?.flag,
+        };
         default:
             return state;
     }

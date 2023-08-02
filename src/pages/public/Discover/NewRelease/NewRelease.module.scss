@@ -12,3 +12,12 @@
 .heading {
     margin-bottom: 20px;
 }
+
+@media screen and (max-width: 1170px) {
+    .songs-container {
+        display: grid;
+        grid-template-columns: 49% 49%;
+        column-gap: 10px;
+        row-gap: 4px;
+    }
+}

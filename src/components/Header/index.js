@@ -4,6 +4,7 @@ import styles from './Header.module.scss';
 import {
     ArrowLeftOutlined,
     ArrowRightOutlined,
+    MenuOutlined,
     SettingOutlined,
 } from '@ant-design/icons';
 import Search from 'antd/es/input/Search';
@@ -44,9 +45,14 @@ const Header = ({ isScroll }) => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [searchValueDebounced])
 
+    const handleShowMenu = () => {
+        dispatch(actions.setMenuShow(true));
+    }
+
     return (
         <div className={cx('wrapper', { isScroll: isScroll })}>
             <div className={cx('search-container')}>
+                <MenuOutlined className={cx('menu-btn')} onClick={handleShowMenu}/>
                 <ArrowLeftOutlined className={cx('lr-button')} onClick={handleGoBack} />
                 <ArrowRightOutlined className={cx('lr-button')} onClick={handleGoForward} />
 

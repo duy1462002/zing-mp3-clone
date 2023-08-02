@@ -1,3 +1,4 @@
+//banner
 export var settings = {
     infinite: true,
     speed: 500,
@@ -30,19 +31,20 @@ export var settings = {
         },
     ],
 };
+//slide playlist
 
 export var settingsPlaylist = {
     infinite: true,
     speed: 500,
-    slidesToShow: 5,
-    slidesToScroll: 5,
+    slidesToShow: 6,
+    slidesToScroll: 2,
     initialSlide: 0,
     responsive: [
         {
             breakpoint: 1600,
             settings: {
                 slidesToShow: 5,
-                slidesToScroll: 5,
+                slidesToScroll: 2,
                 infinite: true,         
             },
         },
@@ -50,7 +52,7 @@ export var settingsPlaylist = {
             breakpoint: 1400,
             settings: {
                 slidesToShow: 4,
-                slidesToScroll: 4,
+                slidesToScroll: 2,
                 infinite: true,         
             },
         },
@@ -58,16 +60,32 @@ export var settingsPlaylist = {
             breakpoint: 1170,
             settings: {
                 slidesToShow: 3,
-                slidesToScroll: 3,
+                slidesToScroll: 1,
                 infinite: true,
             },
         },
         {
             breakpoint: 950,
             settings: {
-                slidesToShow: 2,
-                slidesToScroll: 2,
+                slidesToShow: 4,
+                slidesToScroll: 1,
                 infinite: true,
+            },
+        },
+        {
+            breakpoint: 920,
+            settings: {
+                slidesToShow: 3,
+                slidesToScroll: 1,
+                infinite: true,         
+            },
+        },
+        {
+            breakpoint: 710,
+            settings: {
+                slidesToShow: 2,
+                slidesToScroll: 1,
+                infinite: true,         
             },
         },
     ],

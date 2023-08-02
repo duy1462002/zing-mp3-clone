@@ -18,8 +18,6 @@ const Library = () => {
     const { user } = useSelector((state) => state.app);
     const docRef = doc(database, 'users', `${user?.uid}`);
 
-    console.log(userData);
-
     useEffect(() => {
         const getUser = async () => {
             const docSnap = await getDoc(docRef);
@@ -52,7 +50,12 @@ const Library = () => {
                     ) : (
                         <div className={cx('playlists-wrapper')}>
                             {userData?.playlists?.map((playlist, index) => (
-                                <PlaylistItem key={index} data={playlist} deleteAble className={cx('playlist-item')}/>
+                                <PlaylistItem
+                                    key={index}
+                                    data={playlist}
+                                    deleteAble
+                                    className={cx('playlist-item')}
+                                />
                             ))}
                         </div>
                     )}

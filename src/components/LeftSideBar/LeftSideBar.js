@@ -17,7 +17,7 @@ import SignIn from '../auth/signIn';
 import { useState } from 'react';
 const cx = classNames.bind(styles);
 
-const LeftSideBar = () => {
+const LeftSideBar = ({className}) => {
 
     const [open, setOpen] = useState(false);
     const { isLogin, isSignUpContent } = useSelector((state) => state.app);
@@ -38,7 +38,7 @@ const LeftSideBar = () => {
     }
 
     return (
-        <div className={cx('wrapper')}>
+        <div className={cx('wrapper', className)}>
             <div className={cx('logo-wrapper')} onClick={() => navigate(routes.discover)}>
                 <img src={logo} alt="logo" className={cx('logo')} />
             </div>

@@ -35,6 +35,9 @@ const actionTypes = {
     LOGIN_SUCCESS: 'LOGIN_SUCCESS',
     LOGOUT_SUCCESS: 'LOGOUT_SUCCESS',
 
+    //Set Menu show/hide (responsive)
+    SET_MENU_SHOW: 'SET_MENU_SHOW',
+
 };
 
 export default actionTypes;

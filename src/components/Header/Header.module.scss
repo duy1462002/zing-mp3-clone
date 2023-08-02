@@ -64,3 +64,23 @@
         opacity: 0.9;
     }
 }
+
+.menu-btn {
+    display: none;
+}
+
+@media screen and (max-width: 950px) {
+    .wrapper {
+        left: 0;
+    }
+    .menu-btn {
+        display: block;
+        margin-right: 24px;
+        &:hover {
+            color: var(--primary);
+        }
+    }
+    .lr-button {
+        display: none;
+    }
+}
