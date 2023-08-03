@@ -67,6 +67,10 @@
     display: none;
 }
 
+.loading {
+    width: 380px;
+}
+
 @media screen and (max-width: 950px) {
     .wrapper {
         left: 0;
@@ -92,7 +96,10 @@
     }
     .search-popper {
         padding: 10px;
-        width: 94vw!important;
+        width: 96vw!important;
+    }
+    .loading {
+        width: 96vw;
     }
 }
 

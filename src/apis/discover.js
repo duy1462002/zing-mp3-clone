@@ -3,6 +3,7 @@ import axios from '~/axios';
 export const getDiscover = () =>
     new Promise(async (resolve, reject) => {
         try {
+            
             const response = await axios({
                 url: '/home',
                 method: 'get',

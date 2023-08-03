@@ -6,3 +6,4 @@ export * from './top100';
 export * from './login';
 export * from './auth';
 export * from './showMenu';
+export * from './loading';

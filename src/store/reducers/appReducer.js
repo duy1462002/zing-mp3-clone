@@ -14,6 +14,8 @@ const initState = {
     user: {},
     userData: {},
     isMenuShow: false,
+    isLoading: true,
+    isSearchLoading: true
 };
 
 const appReducer = (state = initState, action) => {
@@ -62,11 +64,21 @@ const appReducer = (state = initState, action) => {
                 ...state,
                 userData: action?.userData,
             };
-            case actionTypes.SET_MENU_SHOW:
-        return {
-            ...state,
-            isMenuShow: action?.flag,
-        };
+        case actionTypes.SET_MENU_SHOW:
+            return {
+                ...state,
+                isMenuShow: action?.flag,
+            };
+        case actionTypes.SET_LOADING:
+            return {
+                ...state,
+                isLoading: action?.flag,
+            };
+        case actionTypes.SET_SEARCH_LOADING:
+            return {
+                ...state,
+                isSearchLoading: action?.flag,
+            };
         default:
             return state;
     }

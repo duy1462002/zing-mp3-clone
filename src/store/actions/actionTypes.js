@@ -38,6 +38,10 @@ const actionTypes = {
     //Set Menu show/hide (responsive)
     SET_MENU_SHOW: 'SET_MENU_SHOW',
 
+    //Set Loading
+    SET_LOADING: 'SET_LOADING',
+    SET_SEARCH_LOADING: 'SET_SEARCH_LOADING',
+
 };
 
 export default actionTypes;

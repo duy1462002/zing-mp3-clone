@@ -4,6 +4,7 @@ import style from './MusicPlayer.module.scss';
 import {
     AlignLeftOutlined,
     HeartOutlined,
+    LoadingOutlined,
     PauseCircleOutlined,
     PlayCircleOutlined,
     RetweetOutlined,
@@ -15,7 +16,7 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
-import { Button, Col, Modal, Popover, Row, Slider, message } from 'antd';
+import { Button, Col, Modal, Popover, Row, Slider, Spin, message } from 'antd';
 import * as apis from '~/apis';
 import ClickAbleText from '../ClickAbleText';
 import PlaylistPopper from './PlaylistPopper';
@@ -323,7 +324,7 @@ const MusicPlayer = () => {
                             </div>
                         </div>
                     ) : (
-                        <h3>Let's pick a song</h3>
+                        <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>}/>
                     )}
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>

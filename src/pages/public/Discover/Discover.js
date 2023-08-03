@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import classNames from 'classnames/bind';
 import style from './Discover.module.scss';
@@ -10,15 +10,24 @@ import * as actions from '~/store/actions';
 import { useNavigate } from 'react-router-dom';
 import NewRelease from './NewRelease';
 import Playlists from './Playlists';
+import LoadingScreen from '~/components/LoadingScreen';
 
 const cx = classNames.bind(style);
 
 const Discover = () => {
     const navigate = useNavigate();
-    const { banner } = useSelector((state) => state.app);
+    const { banner, isLoading } = useSelector((state) => state.app);
     const [arrowShow, setArrowShow] = useState(false);
     const dispatch = useDispatch();
-
+    useEffect(()=> {
+        if(banner?.length === 0) {
+            dispatch(actions.setLoading(true));
+        } else {
+            dispatch(actions.setLoading(false));
+        }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    },[banner?.length])
+    
     const handleArrowTrue = () => {
         setArrowShow(true);
     };
@@ -42,30 +51,37 @@ const Discover = () => {
             //
         }
     };
-
     return (
-        <div className={cx('wrapper')}>
-            <div
-                className={cx('slider-container')}
-                onMouseEnter={handleArrowTrue}
-                onMouseLeave={handleArrowFalse}
-            >
-                <Slider {...settings} arrows={arrowShow} autoplay>
-                    {banner?.map((item, index) => (
-                        <img
-                            onClick={() => handleClickBanner(item)}
-                            className={cx('card')}
-                            key={index}
-                            src={item.banner}
-                            alt=""
-                        />
-                    ))}
-                </Slider>
-            </div>
+        <div>
+            {isLoading ? (
+                <LoadingScreen />
+            ) : (
+                <div className={cx('wrapper')}>
+                    <div
+                        className={cx('slider-container')}
+                        onMouseEnter={handleArrowTrue}
+                        onMouseLeave={handleArrowFalse}
+                    >
+                        {
+                            <Slider {...settings} arrows={arrowShow} autoplay>
+                                {banner?.map((item, index) => (
+                                    <img
+                                        onClick={() => handleClickBanner(item)}
+                                        className={cx('card')}
+                                        key={index}
+                                        src={item.banner}
+                                        alt=""
+                                    />
+                                ))}
+                            </Slider>
+                        }
+                    </div>
 
-            <NewRelease />
+                    <NewRelease />
 
-            <Playlists />
+                    <Playlists />
+                </div>
+            )}
         </div>
     );
 };

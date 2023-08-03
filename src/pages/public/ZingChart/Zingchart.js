@@ -1,5 +1,6 @@
 import React, { memo, useEffect, useRef, useState } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '~/store/actions';
 import { Line } from 'react-chartjs-2';
 // eslint-disable-next-line no-unused-vars
 import { Chart } from 'chart.js/auto';
@@ -9,11 +10,12 @@ import { isEqual } from 'lodash';
 import DisplayedSong from './DisplayedSong';
 import Top100 from '~/components/Top100';
 import WeekChart from '~/components/WeekChart';
+import LoadingScreen from '~/components/LoadingScreen';
 
 const cx = classNames.bind(style);
 
 const ZingChart = () => {
-
+    const dispatch = useDispatch();
     const [dataChart, setDataChart] = useState(null);
     const [songInfo, setSongInfo] = useState(null);
     const [tooltipState, setTooltipState] = useState({
@@ -23,12 +25,21 @@ const ZingChart = () => {
     });
     const [selected, setSelected] = useState(null);
     const chartRef = useRef();
-    const { chart, topSongs, chartHome } = useSelector((state) => state.app);
+    const { chart, topSongs, chartHome, isLoading } = useSelector((state) => state.app);
     useEffect(() => {
-      var songDisplayed = topSongs.find(song => song?.encodeId === selected);
-      setSongInfo(songDisplayed);
-      // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [selected]);
+        if (chartHome?.RTChart?.items) {
+            dispatch(actions.setLoading(false));
+        } else {
+            dispatch(actions.setLoading(true));
+        }
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [chartHome?.RTChart?.items]);
+
+    useEffect(() => {
+        var songDisplayed = topSongs.find((song) => song?.encodeId === selected);
+        setSongInfo(songDisplayed);
+        // eslint-disable-next-line react-hooks/exhaustive-deps
+    }, [selected]);
     const options = {
         responsive: true,
         pointRadius: 0,
@@ -85,7 +96,6 @@ const ZingChart = () => {
             mode: 'dataset',
             intersect: false,
         },
-        
     };
     useEffect(() => {
         const labels = chart?.times
@@ -108,34 +118,40 @@ const ZingChart = () => {
     }, [chart]);
 
     return (
-        <div className={cx('wrapper')}>
-          <div>
-              <h3 className={cx('heading')}>#zingchart</h3>
-    
-                {dataChart && (
-                    <div className={cx('chart')}>
-                        <Line data={dataChart} ref={chartRef} options={options} />
-                        <div
-                            className={cx('tooltip')}
-                            style={{
-                                top: tooltipState.top,
-                                left: tooltipState.left,
-                                opacity: tooltipState.opacity,
-                            }}
-                        >
-                            <DisplayedSong data={songInfo}/> 
-                        </div>
+        <div>
+            {isLoading ? (
+                <LoadingScreen />
+            ) : (
+                <div className={cx('wrapper')}>
+                    <div>
+                        <h3 className={cx('heading')}>#zingchart</h3>
+
+                        {dataChart && (
+                            <div className={cx('chart')}>
+                                <Line data={dataChart} ref={chartRef} options={options} />
+                                <div
+                                    className={cx('tooltip')}
+                                    style={{
+                                        top: tooltipState.top,
+                                        left: tooltipState.left,
+                                        opacity: tooltipState.opacity,
+                                    }}
+                                >
+                                    <DisplayedSong data={songInfo} />
+                                </div>
+                            </div>
+                        )}
                     </div>
-                )}
-          </div>
 
-          <div className={cx('top100-wrapper')}>
-                <Top100 data={chartHome?.RTChart?.items}/>
-          </div>
+                    <div className={cx('top100-wrapper')}>
+                        <Top100 data={chartHome?.RTChart?.items} />
+                    </div>
 
-          <div className={cx('weekChart-wrapper')}>
-                <WeekChart data = {chartHome?.weekChart}/>          
-          </div>
+                    <div className={cx('weekChart-wrapper')}>
+                        <WeekChart data={chartHome?.weekChart} />
+                    </div>
+                </div>
+            )}
         </div>
     );
 };

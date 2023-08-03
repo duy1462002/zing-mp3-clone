@@ -1,17 +1,16 @@
-import React from 'react';
 import classNames from 'classnames/bind';
 import style from './NewRelease.module.scss';
 import { useSelector } from 'react-redux';
 import { useDispatch } from 'react-redux';
 import * as actions from '~/store/actions';
-import SongCommomItem from '../../../../components/SongCommonItem';
+import SongCommomItem from '~/components/SongCommonItem';
 const cx = classNames.bind(style);
 
 const NewRelease = () => {
     const dispatch = useDispatch();
     const { newRelease } = useSelector((state) => state.app);
-    const songsPlayAble = newRelease.filter((song) => song.isWorldWide);
-
+    const songsPlayAble = newRelease?.filter((song) => song.isWorldWide);
+    
     const handleSetPlaylist = () => {
         dispatch(actions.setPlaylist(songsPlayAble));
     };

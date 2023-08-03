@@ -52,8 +52,8 @@ const AvatarPopper = () => {
                     <div className={cx('personal-setting')}>
                         <div className={cx('personal')}>Personal</div>
 
-                        <PopperItem text="Block list" iconLeft={<BlockOutlined />} />
-                        <PopperItem text="Upload song" iconLeft={<UploadOutlined />} />
+                        <PopperItem text="Block list (not working yet...)" iconLeft={<BlockOutlined />} />
+                        <PopperItem text="Upload song (not working yet...)" iconLeft={<UploadOutlined />} />
                     </div>
 
                     <CustomSeparate />
