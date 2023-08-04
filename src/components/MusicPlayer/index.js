@@ -324,7 +324,7 @@ const MusicPlayer = () => {
                             </div>
                         </div>
                     ) : (
-                        <Spin indicator={<LoadingOutlined style={{fontSize: 24}} spin/>}/>
+                        <h2>Let's pick a song!</h2>
                     )}
                 </Col>
                 <Col xs={24} sm={24} md={8} lg={8} xl={8}>
