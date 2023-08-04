@@ -1,6 +1,7 @@
 {
   "name": "zing-mp3",
   "version": "0.1.0",
+  "proxy": "https://api-zingmp3-vercel.vercel.app",
   "private": true,
   "dependencies": {
     "@ant-design/icons": "^5.1.4",
@@ -13,14 +14,12 @@
     "classnames": "^2.3.2",
     "customize-cra": "^1.0.0",
     "firebase": "^10.1.0",
-    "http-proxy-middleware": "^2.0.6",
     "lodash": "^4.17.21",
     "react": "^18.2.0",
     "react-app-rewired": "^2.2.1",
     "react-chartjs-2": "^5.2.0",
     "react-custom-scrollbars-2": "^4.5.0",
     "react-dom": "^18.2.0",
-    "react-loading-skeleton": "^3.3.1",
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",

@@ -4,7 +4,6 @@ import style from './MusicPlayer.module.scss';
 import {
     AlignLeftOutlined,
     HeartOutlined,
-    LoadingOutlined,
     PauseCircleOutlined,
     PlayCircleOutlined,
     RetweetOutlined,
@@ -16,7 +15,7 @@ import {
 } from '@ant-design/icons';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '~/store/actions';
-import { Button, Col, Modal, Popover, Row, Slider, Spin, message } from 'antd';
+import { Button, Col, Modal, Popover, Row, Slider, message } from 'antd';
 import * as apis from '~/apis';
 import ClickAbleText from '../ClickAbleText';
 import PlaylistPopper from './PlaylistPopper';
