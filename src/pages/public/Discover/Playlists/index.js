@@ -9,7 +9,7 @@ const Playlists = () => {
 
     return (
         <div className={cx('wrapper')}>
-            {playlists.map((playlist, index) => (
+            {playlists?.map((playlist, index) => (
                 <SinglePlaylist key={index} data={playlist} />
             ))}
         </div>
