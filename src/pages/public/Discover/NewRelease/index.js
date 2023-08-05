@@ -19,7 +19,7 @@ const NewRelease = () => {
         <div className={cx('wrapper')}>
             <h3 className={cx('heading')}>New Release</h3>
             <div className={cx('songs-container')}>
-                {songsPlayAble.map((song) => (
+                {songsPlayAble?.map((song) => (
                     <SongCommomItem
                         key={song?.encodeId}
                         data={song}
